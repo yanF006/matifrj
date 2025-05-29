@@ -1,0 +1,24 @@
+{
+  "name": "matifrj",
+  "version": "1.0.0",
+  "description": "site para estudo de matematica",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "allan cezar, natalia judice, joao matheus e pedro lucas",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "mysql2": "^3.14.1",
+    "save": "^2.9.0"
+  },
+  "keywords": []
+}

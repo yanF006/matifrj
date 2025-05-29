@@ -1,0 +1,43 @@
+<%- include ('partials/header.ejs'); %>
+    <title>Perfil - MATIFRJ</title>
+    <link rel="stylesheet" href="/CSS/perfil.css">
+<body>
+    <%- include ('partials/navbar-admin.ejs'); %>
+            <main class="content px-3 py-2">
+                
+                    <div class="container">
+
+                        <form action="/editar"></form>
+                        <div class="card profile-card">
+                            <div class="card-body text-center">
+                                <!-- <div class="profile-image mb-3">
+                                    <img id="foto" src="default.jpg" alt="Foto do perfil" class="rounded-circle img-fluid">
+                                    <input type="file" id="fileInput" disabled>
+                                    <button class="btn btn-outline-secondary mt-2" onclick="document.getElementById('fileInput').click();" id="editPhotoButton" disabled>Alterar Foto</button>
+                                </div> -->
+                                <div class="profile-info">
+                                    <div class="textfield">
+                                        <label for="nome">Nome:</label>
+                                        <input type="text" class="form-control" name="name" id="nome" placeholder="<%= user.username %>" disabled> 
+                                    </div>
+                                   
+                                    <div class="textfield">
+                                        <label for="turma">Turma:</label>
+                                        <input type="text" class="form-control" id="turma" placeholder="<%= user.turma %>" disabled> 
+                                          <input type="hidden" name="id" placeholder="<%= user.id %>"> 
+                                    </div>
+                                    <a href="/editar-perfilAdmin/<%= user.id %>">      
+                                        <button class="btn btn-secondary" id="editButton">Editar</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+             
+            </main>
+    <!-- JavaScript -->
+    <!-- <script src="/JS/perfil.js"></script> -->
+    <script src="/JS/script.js"></script>
+</body>
+
+<%- include ('partials/footer.ejs'); %>

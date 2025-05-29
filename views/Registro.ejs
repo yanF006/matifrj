@@ -1,0 +1,42 @@
+<%- include ('partials/header.ejs'); %>
+<link rel="stylesheet" href="/CSS/Registro2.css">
+<body>
+    
+        <form class="card-login" method = "POST" action="/cadastro">
+            <div class="cima">
+              <h1>MATIFRJ</h1>
+            </div>
+                <div class="textfield form-floating">
+                    <input id="FloatingInput"  type="text" placeholder="Seu nome"  class="form-control" name="name" required> 
+                    <label for=" FloatingInput label">Nome</label>
+                </div>
+                <div class="textfield form-floating">
+                    <input id="Floatingcpf" type="text" placeholder="123.456.789-10" class="form-control" name="cpf" minlength="14" maxlength="14"  onkeyup="mascara_cpf()" required> 
+                    <label for="Floatingcpf label">CPF</label>
+                </div>
+                <div class="textfield form-floating">
+                    <input id="FloatingTurma" type="text" placeholder="Turma"  name="turma" class="form-control" required> 
+                    <label for="FloatingTurma label">Turma</label>
+                </div>
+                <div class="textfield form-floating">
+                    <input id="FloatingInput" type="email" placeholder="exemplo@gmail.com" name="email" class="form-control" required> 
+                    <label for="FloatingInput label email">Email</label>
+                </div>
+                <div class="textfield form-floating">
+                    <input id="FloatingPassword" type="password" placeholder="Senha"  name="password" class="form-control" minlength="8" required> 
+                    <label for="FloatingPassword label">Senha</label>
+                </div>
+                <div class="textfield form-floating">
+                    <input id="FloatingPasswordC" type="password" placeholder="Confirmação de senha" class="form-control" minlength="8" required> 
+                    <label for=" FloatingPasswordC label">Confirme sua senha</label>
+                </div>
+                <button type="submit" class="submit">Registre-se</button>
+                <p class="footer">Já possui conta? <a href="/" class="link">Por favor, faça login</a>
+                </p>
+           
+        </form>   
+        <script src="/JS/login.js"></script>
+
+</body>
+
+<%- include ('partials/footer.ejs'); %>

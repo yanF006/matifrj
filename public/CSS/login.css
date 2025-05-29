@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+body {
+    margin: 0;
+    font-family: "noto sans", sans-serif;
+    background: #BFDDF3;
+    
+}
+body * {
+    box-sizing: border-box;
+}
+.principal {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer {
+    width: 100%;
+    color:#141414;
+    margin-top: 0px;
+   
+} 
+
+.footer>a {
+    width: 100%;
+    text-decoration: none;
+}
+
+.card-login {
+    width: 40%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 35px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 40px #00000056;
+    background-color: white;
+}
+
+.cima {
+    width: 100%;
+    margin: 3vh 5vh;
+}
+.cima>h1 {
+    
+    text-align: center;
+    color: #141414;
+    font-size: 75px;
+    font-weight: bolder;
+    margin: 10px;
+}
+
+.textfield {
+    width: 100%;
+    margin: 0px 50px;
+    display: flex;
+    flex-direction: column;
+}
+.textfield>input {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    background: #dde3e8;
+    color: #111212;
+    font-size: 12pt;
+    outline: none;
+}
+
+.textfield>label {
+    margin: 10px 0px;
+    margin-bottom: 10px;
+    color:#111212;
+    font-weight: bolder;
+}
+
+.textfield>input::placeholder {
+    color: #1112124b;
+}
+#login_btn{
+    background-color: aqua;
+    border-radius: 8px;
+    margin: 30px;
+}
+.submit {
+    height: 6vh;
+    width: 30vw;
+    border-radius: 8px;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #081b29;
+    background: #00ff88;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff8052;
+}
+
+@media only screen and (max-width: 950px) {
+    .card-login {
+        width: 85%;
+    }
+    .cima>h1{
+        font-size: 13vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .principal {
+        flex-direction: column;
+    }
+
+}

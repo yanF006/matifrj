@@ -1,0 +1,186 @@
+<div class="wrapper">
+    <aside id="sidebar">
+        <div class="h-100">
+            <div class="sidebar-logo">
+                <a href="/index-admin">MATIFRJ</a>
+            </div>
+            <div id="user">
+               
+                <p id="user_infos">
+                    <% if (user) { %>
+                        <span class="item-description" id="usuario"><%= user.username %></span>
+                        
+                    <% } else { %>
+                        <span class="item-description" id="usuario">Faça Login/Cadastre-se !</span>
+                    <% } %>
+                    
+
+                    <% if (user.turma) { %>
+                        <span class="item-description">
+                            <%= user.turma %>
+                        </span>
+                        
+                    <% } else { %>
+                        <span class="item-description"></span>
+                    <% } %>
+                </p>
+            </div>
+            <li class="sidebar-item">
+                <a href="/index-admin" class="sidebar-link">
+                    <i class="fa-solid fa-house"></i>
+                    Página inicial
+                </a>
+            </li>       
+            <ul class="sidebar-nav">       
+                <li class="sidebar-item">
+                    <a href="/perfil-admin/<%= user.id %>" class="sidebar-link">
+                        <i class="fa-solid fa-user"></i>
+                        Perfil
+                    </a>
+                </li>     
+                <!-- <li class="sidebar-item">
+                    <a href="/atividades" class="sidebar-link">
+                        <i class="fa-solid fa-pen-fancy"></i>
+                        Cadastrar Atividades
+                    </a>
+                </li>    -->
+                <!-- <li class="sidebar-item">
+                    <a href="/ConteudosCadastrar" class="sidebar-link">
+                        <i class="fa-solid fa-pen"></i>
+                        Cadastrar Conteudos
+                    </a>
+                </li>     
+                <li class="sidebar-item">
+                    <a href="/GerenciarConteudos" class="sidebar-link">
+                        <i class="fa-solid fa-box-archive"></i>
+                        Gerenciar Conteudos
+                    </a>
+                </li>      -->
+                 
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#anos"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        Anos
+                    </a>
+                    <ul id="anos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/Bimestres-admin/1" class="sidebar-link">1 ano</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/Bimestres-admin/2" class="sidebar-link">2 ano</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/Bimestres-admin/3" class="sidebar-link">3 ano</a>
+                        </li>
+                    </ul>
+                </li>    
+
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#users"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-users-rectangle"></i>
+                        Usuários
+                    </a>
+                    <ul id="users" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/cargos" class="sidebar-link">Gerenciar cargos de usuários</a>
+                        </li>
+                    </ul>
+                </li> 
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#categorias"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-cubes-stacked"></i>
+                        Categorias
+                    </a>
+                    <ul id="categorias" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/categorias" class="sidebar-link">Gerenciar categorias</a>
+                        </li>
+                    </ul>
+                </li>    
+
+
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#conteudos"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-box-archive"></i>
+                        Conteudos
+                    </a>
+                    <ul id="conteudos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/GerenciarConteudos" class="sidebar-link">  
+                                Gerenciar Conteudos
+                            </a>
+                        </li>     
+                        <li class="sidebar-item">
+                            <a href="/ConteudosCadastrar" class="sidebar-link">
+                                Cadastrar Conteudos
+                            </a>
+                        </li>
+                    </ul>
+                </li>  
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#atividades-collapse"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-pen-fancy"></i>
+                        Atividades
+                    </a>
+                    <ul id="atividades-collapse" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/atividades" class="sidebar-link">
+                                Cadastrar Atividades
+                            </a>
+                        </li>  
+                        
+                        <li class="sidebar-item">
+                            <a href="/gerenciar-exercicios" class="sidebar-link">
+                                Gerenciar Atividades
+                            </a>
+                        </li>  
+                        
+                    </ul>
+                </li>  
+
+                <!-- <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#autenticar"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-square-check"></i> 
+                        Autenticar
+                    </a>
+                    <ul id="autenticar" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/login" class="sidebar-link">Login</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/cadastro" class="sidebar-link">Registro</a>
+                        </li>
+                    </ul>
+                </li>   -->
+                
+                <div class="logout_btn">
+                    <li class="sidebar-item" id="logout">
+                        <hr>
+                        <a href="/logout" class="sidebar-link">
+                            <i class="fa-solid fa-door-open"></i>
+                            Logout
+                        </a>
+                    </li> 
+                </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </aside>
+            <div class="main" id="index">
+        <nav>
+            <button class="btn" type="button" data-bs-theme="dark">
+                <i class="fa-solid fa-bars"></i>       
+            </button>
+        </nav>
+

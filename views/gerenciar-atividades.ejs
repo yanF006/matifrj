@@ -1,0 +1,87 @@
+<%- include ('partials/header.ejs'); %>
+<link rel="stylesheet" href="/CSS/gerenciarAtividades.css">
+<title>Sistema de Adm</title>
+<body>
+    <%- include ('partials/navbar-admin.ejs'); %>
+    <div class="container mt-4">
+        <h1>Gerenciador de Atividades</h1>
+        <div class="card p-4">
+            <h2 class="mb-3">Buscar Atividades</h2>
+            <form id="adminForm" action="/buscarExerciciosPorConteudo" method="GET">
+                <div class="mb-3">
+                    <label for="">Buscar pelo conteudo</label> <br>
+                               <select class="form-select" name ="id_conteudo">
+                               <option value=""></option>
+                               <% conteudos.forEach(conteudo => { %>
+                                <option value="<%= conteudo.id %>"><%= conteudo.titulo %></option>
+                                <% }) %>
+
+                            </select>
+                            <button class=" mt-1 btn btn-success">Buscar</button>
+                </div>
+            </form>
+
+            <form id="adminForm" action="/buscarExerciciosTexto" method="GET">
+                <div class="mb-3">
+                    <label for="q" class="form-label">Buscar pelo enunciado</label>
+                    <div class="search-container">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" class="form-control" id="q" name="q" placeholder="Buscar...">
+                        
+                    </div>
+                    <button class="mt-1 btn btn-success" type="submit">Buscar</button>
+                </div>
+            </form>
+            <div class="mt-4" >
+                <h3 class="card-header" style="border: solid lightgray 1px; background-color: #f4f3e0;">Exercícios</h3>
+                <ul class="list-group" id="adminList">   
+                    <% exercicios.forEach(exercicio => { %>
+                        <li class="adm list-group-item d-flex justify-content-between align-items-center"><%- exercicio.descricao %>
+                            <div>
+                                <a href="/editar-exercicios/<%= exercicio.id %>"><button class="btn-func btn btn-warning mx-2">Editar</button></a><button data-id="<%= exercicio.id %>" class="remove-exercicio btn-func btn btn-danger mx-2">Excluir</button><a href="/editar-alternativas/<%= exercicio.id %>"><button class="btn-func btn btn-secondary mx-2">Editar alternativas</button></a> <a href="/adicionar-alternativas/<%= exercicio.id %>"><button class="btn-func btn btn-success mx-2">Adicionar alternativas</button></a>
+                            </div>
+                        </li>
+                        <% }) %>
+                    
+                </ul>
+            </div>
+            <!-- <div class="mt-4" >
+                <h3 class="card-header" style="border: solid lightgray 1px; background-color:#f4f3e0;">Conteudo 2</h3>
+                <ul class="list-group" id="adminList">   
+                    <li class="adm list-group-item d-flex justify-content-between align-items-center"><p class="nome-adm">Allanaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                        <div>
+                            <button class="btn-func btn btn-warning mx-2">Editar</button><button class="btn-func btn btn-danger mx-2">Excluir</button><button class="btn-func btn btn-secondary mx-2">Editar alternativas</button>
+                        </div>
+                    </li>
+                </ul>
+            </div> -->
+
+        </div>
+    </div>
+
+    <script>
+         document.querySelectorAll(".remove-exercicio").forEach(button => {
+        button.addEventListener('click', function() {
+            const exercicioId = this.getAttribute('data-id');
+    
+            
+
+            fetch(`http://localhost:8070/delete-exercicio/${exercicioId}`, {
+                method: 'DELETE',
+            }).then(response => {
+    if (response.redirected) {
+        // Se o redirecionamento acontecer, você pode usar:
+        window.location.href = response.url;
+    }
+})
+.catch(error => {
+    console.error('Erro:', error);
+});
+        })
+            
+    });
+    </script>
+    <script src="/JS/cargos.js"></script>
+    <script src="/JS/script.js"></script>
+</body>
+<%- include ('partials/footer.ejs'); %>

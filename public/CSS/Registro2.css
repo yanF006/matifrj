@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    margin: 0;
+    font-family: "noto sans", sans-serif;
+    background: #BFDDF3;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+body * {
+    box-sizing: border-box;
+}
+
+.footer>a {
+    text-decoration: none;
+}
+
+.card-login {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    padding: 30px 35px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 40px #00000056;
+}
+
+.cima>h1 {
+    text-align: center;
+    color: #141414;
+    font-weight: bolder;
+    margin: 10px;
+}
+
+.textfield {
+    width: 85%;
+    border-radius: 20px;
+    margin:3px;
+    background-color: white;
+}
+
+.submit {
+    margin: 20px;
+    height: 6vh;
+    width: 25vw;
+    border-radius: 8px;
+    border: none;
+    text-transform: uppercase;
+    font-weight: bolder;
+    letter-spacing: 3px;
+    background: #00ff88;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 950px) {
+    .card-login {
+        width: 90%;
+    }
+    .cima>h1{
+        font-size: 13vw;
+    }
+    .submit {
+        width: 60vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .principal {
+        flex-direction: column;
+    }
+}

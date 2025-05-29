@@ -1,0 +1,27 @@
+.nav-link.active {
+    position: relative;
+  }
+.opcao{
+  color: #007bff;
+}
+  .nav-link.active::after {
+    border-bottom: 0;
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1.5px;
+    border-radius: 5px;
+    height: 4px;
+    background-color: #007bff; /* Cor da linha de destaque */
+  }
+.card {
+    min-width: 90vw;
+    flex-shrink: 0;
+}
+.titulo{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  font-weight: bolder;
+}

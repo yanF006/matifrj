@@ -1,0 +1,95 @@
+<div class="wrapper">
+    <aside id="sidebar">
+        <div class="h-100">
+            <div class="sidebar-logo">
+                <a href="/index-aluno">MATIFRJ</a>
+            </div>
+            <div id="user">
+                
+                <p id="user_infos">
+                    <% if (user) { %>
+                        <span class="item-description" id="usuario"><%= user.username %></span>
+                        
+                    <% } else { %>
+                        <span class="item-description" id="usuario">Faça Login/Cadastre-se !</span>
+                    <% } %>
+
+
+                    <% if (user.turma) { %>
+                        <span class="item-description">
+                            <%= user.turma %>
+                        </span>
+                        
+                    <% } else { %>
+                        <span class="item-description"></span>
+                    <% } %>
+                    
+                </p>
+            </div>      
+            <ul class="sidebar-nav">       
+                <li class="sidebar-item">
+                    <a href="/index-aluno" class="sidebar-link">
+                        <i class="fa-solid fa-house"></i>
+                        Página inicial
+                    </a>
+                </li>         
+                <li class="sidebar-item">
+                    <a href="/perfil-alunor/<%= user.id %>" class="sidebar-link">
+                        <i class="fa-solid fa-user"></i>
+                        Perfil
+                    </a>
+                </li>         
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#anos"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        Anos
+                    </a>
+                    <ul id="anos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/Bimestres-aluno/1" class="sidebar-link">1º ano</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/Bimestres-aluno/2" class="sidebar-link">2º ano</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/Bimestres-aluno/3" class="sidebar-link">3º ano</a>
+                        </li>
+                    </ul>
+                </li>    
+                <!-- <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#autenticar"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-square-check"></i> 
+                        Autenticar
+                    </a>
+                    <ul id="autenticar" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/login" class="sidebar-link">Login</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/cadastro" class="sidebar-link">Registro</a>
+                        </li>
+                    </ul>
+                </li>   -->
+                
+                <div class="logout_btn">
+                    <li class="sidebar-item" id="logout">
+                        <hr>
+                        <a href="/logout" class="sidebar-link">
+                            <i class="fa-solid fa-door-open"></i>
+                            Logout
+                        </a>
+                    </li> 
+                </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </aside>
+            <div class="main" id="index">
+        <nav>
+            <button class="btn" type="button" data-bs-theme="dark">
+                <i class="fa-solid fa-bars"></i>       
+            </button>
+        </nav>

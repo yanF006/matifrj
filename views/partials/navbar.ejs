@@ -1,0 +1,119 @@
+<div class="wrapper">
+    <aside id="sidebar">
+        <div class="h-100">
+            <div class="sidebar-logo">
+                <a href="/">MATIFRJ</a>
+            </div>
+            <div id="user">
+                <img src="/" id="user_avatar" alt="Avatar">
+                <p id="user_infos">
+
+                    <% if (user) { %>
+                        <span class="item-description" id="usuario"><%= user.username %></span>
+                        
+                    <% } else { %>
+                        <span class="item-description" id="usuario">Faça Login/Cadastre-se !</span>
+                    <% } %>
+                    
+                    <span class="item-description">
+                        Turma
+                    </span>
+                </p>
+            </div>      
+            <ul class="sidebar-nav">       
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="fa-solid fa-user"></i>
+                        Perfil
+                    </a>
+                </li>     
+                <li class="sidebar-item">
+                    <a href="/atividades" class="sidebar-link">
+                        <i class="fa-solid fa-book-open"></i>
+                        Cadastrar Atividades
+                    </a>
+                </li>   
+                <li class="sidebar-item">
+                    <a href="/ConteudosCadastrar" class="sidebar-link">
+                        <i class="fa-solid fa-book-open"></i>
+                        Cadastrar Conteudos
+                    </a>
+                </li>     
+                <li class="sidebar-item">
+                    <a href="/GerenciarConteudos" class="sidebar-link">
+                        <i class="fa-solid fa-book-open"></i>
+                        Gerenciar Conteudos
+                    </a>
+                </li>     
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="fa-solid fa-gear"></i>
+                        Configurações
+                    </a>
+                </li>     
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="fa-solid fa-bell"></i>
+                        Notificações
+                    </a>
+                </li>     
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="fa-solid fa-box"></i>
+                        Preparatorio
+                    </a>
+                </li>     
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#anos"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        Anos
+                    </a>
+                    <ul id="anos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/Bimestres/1" class="sidebar-link">1 ano</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/Bimestres/2" class="sidebar-link">2 ano</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/Bimestres/3" class="sidebar-link">3 ano</a>
+                        </li>
+                    </ul>
+                </li>    
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#autenticar"
+                        aria-expanded="false">
+                        <i class="fa-solid fa-square-check"></i> 
+                        Autenticar
+                    </a>
+                    <ul id="autenticar" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/login" class="sidebar-link">Login</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/cadastro" class="sidebar-link">Registro</a>
+                        </li>
+                    </ul>
+                </li>  
+                
+                <div class="logout_btn">
+                    <li class="sidebar-item" id="logout">
+                        <hr>
+                        <a href="#" class="sidebar-link">
+                            <i class="fa-solid fa-door-open"></i>
+                            Logout
+                        </a>
+                    </li> 
+                </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </aside>
+            <div class="main" id="index">
+        <nav>
+            <button class="btn" type="button" data-bs-theme="dark">
+                <i class="fa-solid fa-bars"></i>       
+            </button>
+        </nav>

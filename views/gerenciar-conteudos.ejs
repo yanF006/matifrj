@@ -1,0 +1,87 @@
+<%- include ('partials/header.ejs'); %>
+<link rel="stylesheet" href="/CSS/gerenciarAtividades.css">
+<body>
+    <%- include ('partials/navbar-admin.ejs'); %>
+    <div class="container">
+        <h1 class="text-center my-4">Gerenciador de Conteúdo</h1>
+        <div class="row">
+
+            <div class="card p-4 mb-5">
+                <h2 class="mb-3">Buscar Conteúdos</h2>
+                <form id="adminForm" action="/buscarConteudosPorCategoria" method="GET">
+                    <div class="mb-3">
+                        <label for="">Buscar pela categoria</label> <br>
+                                   <select class="form-select" name ="id_categoria">
+                                   <option value=""></option>
+                                   <% categorias.forEach(categoria => { %>
+                                    <option value="<%= categoria.id %>"><%= categoria.nome %></option>
+                                    <% }) %>
+    
+                                </select>
+                                <button class=" mt-1 btn btn-success">Buscar</button>
+                    </div>
+                </form>
+    
+                <form id="adminForm" action="/buscarConteudoTexto" method="GET">
+                    <div class="mb-3">
+                        <label for="q" class="form-label">Buscar pelo título</label>
+                        <div class="search-container">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" class="form-control" id="q" name="q" placeholder="Buscar...">
+                            
+                        </div>
+    
+                        <button class="mt-1 btn btn-success" type="submit">Buscar</button>
+                    </div>
+                </form>
+
+            </div>
+            
+              
+
+            <% resultado.forEach(result => { %>
+
+                <div class="col-md-12">
+                    <div class="card mb-4" id="card">
+                        <div class="card-body ">
+                            <h5 class="card-title" id="cardTitle-1"><%= result.titulo %></h5>
+
+                            <a href="/editar-conteudos/<%= result.id %>" class="btn btn-primary">Editar</a>
+                            <button class="remove-conteudo btn btn-danger" data-id="<%= result.id %>">Excluir</button>
+                        </div>
+                    </div>
+                </div>
+                
+                   
+                   
+            <% }) %>
+
+
+        
+
+<script>
+     document.querySelectorAll(".remove-conteudo").forEach(button => {
+        button.addEventListener('click', function() {
+            const conteudoId = this.getAttribute('data-id');
+    
+            
+
+            fetch(`http://localhost:8070/delete-conteudo/${conteudoId}`, {
+                method: 'DELETE',
+            }).then(response => {
+    if (response.redirected) {
+        // Se o redirecionamento acontecer, você pode usar:
+        window.location.href = response.url;
+    }
+})
+.catch(error => {
+    console.error('Erro:', error);
+});
+        })
+            
+    });
+
+</script>
+    <script src="/JS/script.js"></script>
+</body>
+<%- include ('partials/footer.ejs'); %>

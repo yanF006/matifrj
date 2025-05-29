@@ -1,0 +1,140 @@
+/*Geral*/
+*{ 
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+}
+p {
+    margin: 10px;
+}
+    button {
+        background-color: #f9f7f9;
+        color: black;
+        border: 2px solid #181a18;
+        padding: .3rem .6rem;
+        font-size: 1rem;
+        cursor: pointer;
+        
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        transition: 0.4s;
+    }
+
+    button:hover {
+        background-color: #008004;
+        color: #f9f7f9;
+    }  
+    button:hover>i {
+        color: #f9f7f9;
+    }
+    button i {
+        pointer-events: none;
+    }
+
+    input {
+        padding: 0.25rem 0.5rem;
+    }
+    .hide{
+        display: none;
+    }
+/*Cabeçalho*/
+.alternative-container{
+    max-width: 450px;
+    margin: 3rem auto;
+    background-color: rgb(238, 240, 240);
+    box-shadow: 0 0 35px 0 rgba(49, 57, 66, 0.5);
+    padding: 1.5rem;
+    border-radius: 15px;
+}
+.alternative-container header {
+    text-align: center;
+    padding: 0 1rem 1rem;
+    border-bottom:1px solid #333;
+}
+
+/*Formulario de alternativas*/
+
+.alternative-form p{
+    margin-bottom: .5rem;
+    font-weight: bold;
+}
+.form-control {
+    display: flex;
+    width: 100%;
+}
+.form-control input {
+    margin-right: 0.3rem;
+}
+#cancel-edit-btn {
+    margin-top: 1rem;
+}
+
+/*Lista Alternativas*/  
+
+.alternative{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    transition: .3s;
+    margin-top: 10px;
+}
+#alternative-list {
+    margin: 20px;
+
+}
+.alternative h3 {
+    flex: 1;
+    font-size: 0.9rem ;
+    max-width: 240pxpx;
+    word-break: break-all;
+    
+}
+.correct-alternative {
+    
+    border: 2px solid #008004;
+}   
+.remove-alternative {
+   
+    border: 2px solid red;
+}
+.edit-alternative:hover {
+    
+    background-color: rgb(185, 185, 0);
+}
+.remove-alternative:hover {
+   
+    background-color: red;
+}
+
+.alternative button {
+ margin-left: 0.4rem;
+
+}
+.correct {
+    background-color: #008004;
+    border-radius: 17px;
+}
+.correct h3 {
+    color: #FFF;
+    font-style: italic;
+}
+
+.correct-alternative {
+    background-color: #f0f0f0; /* Cor padrão */
+    color: #000; /* Cor do texto padrão */
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.correct-alternative.selected {
+    background-color: #28a745; /* Verde (selecionado) */
+    color: #fff; /* Texto branco */
+    border-color: #28a745; /* Borda verde */
+}

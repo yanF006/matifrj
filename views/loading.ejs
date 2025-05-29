@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salvar Dados e Redirecionar</title>
+</head>
+<body onload="salvarDados()">
+    <h1>Salvando dados...</h1>
+    <input type="hidden" id="name" value="<%= name  %>">
+
+    <script>
+        // Obtém os dados passados pelo backend
+        function salvarDados(){
+           
+        const name =  document.getElementById('name').value;
+        localStorage.clear()
+            localStorage.setItem('name', name);
+            
+        window.location.assign('/');
+
+        }
+       
+    </script>
+</body>
+</html>

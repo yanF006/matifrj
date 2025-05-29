@@ -1,0 +1,188 @@
+<%- include ('partials/header.ejs'); %>
+<title>Editar Alternativas</title>
+<link rel="stylesheet" href="/CSS/alternativas.css">
+<body>
+
+    <main class="content px-3 py-2">
+        <div class="container-fluid">
+            <div class="mb-3 alternative-container">
+
+                <header>
+                    <h1>Editar Alternativas</h1>
+                </header>
+
+                <div id="alternative-list">
+                    <% result.forEach(result => { %>
+                        <div class="alternative">
+                            <form class="edit-alternative-form" action="/" method="POST">
+                                <div class="form-control">
+                                    <input 
+                                        type="text" 
+                                        value="<%= result.conteudo %>" 
+                                        name="conteudo" 
+                                        class="alternative-input" 
+                                        required
+                                    />
+                                    <input type="hidden" value="<%= result.alternativa_id %>" name="id_alternativa">
+                                    <input type="hidden" value="<%= id %>" name="id_ex">
+                                    
+                                </div>
+                            </form>
+                            <% if (result.correta === 1) { %>
+                                <button class="correct-alternative selected" data-id="<%= result.alternativa_id %>" data-selected="0" >
+                                    <i class="fa-solid fa-check"></i>
+                                  </button>
+                              <% } else { %>
+                                <button class="correct-alternative" data-id="<%= result.alternativa_id %>" data-selected="0" >
+                                    <i class="fa-solid fa-check"></i>
+                                  </button>
+                              <% } %>
+                            
+                            <button class="remove-alternative" data-id="<%=result.alternativa_id %>" name="<%=id %>">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    <% }) %>
+
+                    
+                        <button id="save-alternatives"  class="btn btn-success">Concluir</button>
+                    
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.querySelectorAll(".remove-alternative").forEach(button => {
+            button.addEventListener('click', function () {
+                const alternativaId = this.getAttribute('data-id');
+                const exercicioId = this.getAttribute('name');
+
+                fetch(`http://localhost:8070/deleteAlternativaEdit/${alternativaId}?id_ex=${exercicioId}`, {
+                    method: 'DELETE',
+                }).then(response => {
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    }
+                }).catch(error => {
+                    console.error('Erro:', error);
+                });
+            });
+        });
+
+        
+    // document.querySelectorAll(".correct-alternative").forEach(button => {
+    //     button.addEventListener("click", function () {
+    //         const alternativaId = this.getAttribute("data-id");
+    //         const isSelected = this.getAttribute("data-selected") === "1"; // Verifica se está marcado como selecionado
+    //         const novaCorreta = isSelected ? 0 : 1; // Alterna entre 0 e 1
+
+    //         // Atualiza visualmente o botão
+    //         this.setAttribute("data-selected", novaCorreta);
+    //         this.classList.toggle("selected", novaCorreta === 1);
+
+    //         // Envia a atualização para o backend
+    //         fetch(`/updateCorreta`, {
+    //             method: "PUT",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 id_alternativa: alternativaId,
+    //                 correta: novaCorreta,
+    //             }),
+    //         })
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 if (data.success) {
+    //                     console.log(`Alternativa ${alternativaId} atualizada com sucesso.`);
+    //                 } else {
+    //                     console.error("Erro ao atualizar:", data.message);
+    //                 }
+    //             })
+    //             .catch(error => {
+    //                 console.error("Erro na requisição:", error);
+    //             });
+    //     });
+    // });
+    document.querySelectorAll(".correct-alternative").forEach(button => {
+            button.addEventListener("click", function () {
+                const isSelected = this.classList.contains("selected");
+
+                // Desmarca todos os botões e ajusta data-correct para 0
+                document.querySelectorAll(".correct-alternative").forEach(btn => {
+                    btn.classList.remove("selected");
+                    btn.setAttribute("data-correct", "0");
+                });
+
+                if (!isSelected) {
+                    // Marca o botão atual e ajusta data-correct para 1
+                    this.classList.add("selected");
+                    this.setAttribute("data-correct", "1");
+                }
+            });
+        });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    // Botão "Concluir"
+    const saveButton = document.getElementById("save-alternatives");
+
+    if (!saveButton) {
+        console.error("Botão Concluir não encontrado!");
+        return;
+    }
+
+    saveButton.addEventListener("click", async function () {
+        console.log("Botão Concluir clicado!");
+
+        const alternativas = [];
+        const id_ex = "<%= id %>"; // ID do exercício
+
+        // Coleta os dados de todas as alternativas
+        document.querySelectorAll(".alternative-input").forEach(input => {
+            const id_alternativa = input
+        .closest(".form-control")
+        .querySelector('input[name="id_alternativa"]').value;
+
+    const conteudo = input.value.trim();
+
+    // Procura o botão de seleção de correta relacionado
+    const correta = document
+        .querySelector(`.correct-alternative[data-id="${id_alternativa}"]`)
+        ?.getAttribute("data-correct") === "1" ? 1 : 0;
+
+    alternativas.push({ id_alternativa, conteudo, correta }); })
+
+        // Envia os dados para o backend
+        console.log("Dados a serem enviados:", { id_ex, alternativas });
+        try {
+            const response = await fetch("/saveAlternativas", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id_ex, alternativas }),
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert("Alternativas atualizadas com sucesso!");
+                window.location.href = "/gerenciar-exercicios ";
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error("Erro ao salvar alternativas:", error);
+            alert("Erro ao salvar alternativas.");
+        }
+    });
+});
+
+    
+
+    </script>
+
+    <script src="/JS/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</body>
+<%- include ('partials/footer.ejs'); %>

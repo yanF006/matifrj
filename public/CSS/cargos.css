@@ -1,0 +1,63 @@
+.header {
+    background-color: #87cefa;
+    padding: 20px 0;
+    text-align: center;
+}
+.header h1 {
+    color: white;
+    margin: 0;
+}
+
+.card {
+    min-width: 90vw;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btn-primary {
+    background-color: #1e90ff;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #4682b4;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    padding: 5px 10px;
+    background-color: #f9f9f9;
+}
+
+.search-container input[type="text"] {
+    border: none;
+    outline: none;
+    flex: 1; 
+    padding: 5px;
+    font-size: 16px;
+    background-color: transparent;
+}
+.search-container .search-icon {
+    font-size: 18px;
+    color: #888;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.nome-adm {
+    margin: 0;
+    max-width: 70%;
+}
+@media (max-width:768px) {
+    .adm {
+        flex-direction: column;
+        align-items: start;
+    }
+    .btn-func{
+        margin-top: 10px;
+    }
+    .nome-adm{
+        max-width: 100%;
+    }
+}
