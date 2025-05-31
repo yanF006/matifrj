@@ -212,6 +212,6 @@ app.post('/editarConteudos', isAuthenticated(1), ConteudosController.editarConte
 
 
 
-app.listen(5432,()=>{
+app.listen(8070,()=>{
     console.log("Servidor Rodando")
 })
