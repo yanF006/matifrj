@@ -5,7 +5,8 @@ var knex = require('knex')({
       user : 'root',
       password : 'NxlJb8dTaexSTGmPMKVzxQGNj8NYn8YY',
       database : 'matifrj',
-      port: '5432'
+      port: 5432,
+      ssl: true
     }
   });
 
