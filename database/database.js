@@ -1,12 +1,12 @@
 var knex = require('knex')({
-    client: 'pg',
+    client: 'mysql2',
     connection: {
-      host : 'dpg-d0tgo7e3jp1c73ej952g-a.oregon-postgres.render.com',
+      host : 'caboose.proxy.rlwy.net',
       user : 'root',
-      password : 'NxlJb8dTaexSTGmPMKVzxQGNj8NYn8YY',
+      password : 'kdHHqulrTmNNaUtbNpIJKmhfiRvKMhaA',
       database : 'matifrj',
-      port: 5432,
-      ssl: true
+      port: 49606,
+      protocol: 'tcp',
     }
   });
 
