@@ -24,14 +24,14 @@
                         <span class="item-description"></span>
                     <% } %>
                 </p>
-            </div>
+            </div>   
+            <ul class="sidebar-nav">   
             <li class="sidebar-item">
                 <a href="/index-admin" class="sidebar-link">
                     <i class="fa-solid fa-house"></i>
                     Página inicial
                 </a>
-            </li>       
-            <ul class="sidebar-nav">       
+            </li>        
                 <li class="sidebar-item">
                     <a href="/perfil-admin/<%= user.id %>" class="sidebar-link">
                         <i class="fa-solid fa-user"></i>
@@ -65,13 +65,13 @@
                     </a>
                     <ul id="anos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="/Bimestres-admin/1" class="sidebar-link">1 ano</a>
+                            <a href="/Bimestres-admin/1" class="sidebar-link">1º ano</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="/Bimestres-admin/2" class="sidebar-link">2 ano</a>
+                            <a href="/Bimestres-admin/2" class="sidebar-link">2º ano</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="/Bimestres-admin/3" class="sidebar-link">3 ano</a>
+                            <a href="/Bimestres-admin/3" class="sidebar-link">3º ano</a>
                         </li>
                     </ul>
                 </li>    
@@ -109,17 +109,17 @@
                     <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#conteudos"
                         aria-expanded="false">
                         <i class="fa-solid fa-box-archive"></i>
-                        Conteudos
+                        Conteúdos
                     </a>
                     <ul id="conteudos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
                             <a href="/GerenciarConteudos" class="sidebar-link">  
-                                Gerenciar Conteudos
+                                Gerenciar Conteúdos
                             </a>
                         </li>     
                         <li class="sidebar-item">
                             <a href="/ConteudosCadastrar" class="sidebar-link">
-                                Cadastrar Conteudos
+                                Cadastrar Conteúdos
                             </a>
                         </li>
                     </ul>
@@ -133,16 +133,15 @@
                     </a>
                     <ul id="atividades-collapse" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="/atividades" class="sidebar-link">
-                                Cadastrar Atividades
-                            </a>
-                        </li>  
-                        
-                        <li class="sidebar-item">
                             <a href="/gerenciar-exercicios" class="sidebar-link">
                                 Gerenciar Atividades
                             </a>
-                        </li>  
+                        </li> 
+                        <li class="sidebar-item">
+                            <a href="/atividades" class="sidebar-link">
+                                Cadastrar Atividades
+                            </a>
+                        </li>   
                         
                     </ul>
                 </li>  

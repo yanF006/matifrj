@@ -65,7 +65,7 @@ body * {
 
 @media only screen and (max-width: 950px) {
     .card-login {
-        width: 90%;
+        width: 100%;
     }
     .cima>h1{
         font-size: 13vw;

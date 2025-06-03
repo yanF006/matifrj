@@ -13,7 +13,13 @@ body {
 body * {
     box-sizing: border-box;
 }
-
+.principal {
+    width: 70vw;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .footer>a {
     text-decoration: none;
 }
@@ -44,6 +50,10 @@ body * {
     background-color: white;
 }
 
+.textfield label {
+    width: 100%;
+}
+
 .submit {
     margin: 20px;
     height: 6vh;
@@ -59,7 +69,7 @@ body * {
 
 @media only screen and (max-width: 950px) {
     .card-login {
-        width: 90%;
+        width: 100%;
     }
     .cima>h1{
         font-size: 13vw;

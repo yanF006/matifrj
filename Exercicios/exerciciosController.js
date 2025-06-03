@@ -1,6 +1,7 @@
 const Exercicios =  require('./exercicios')
 const Conteudos = require('../Conteudos/conteudos')
 const knex = require('../database/database')
+const googleSheetsService = require('../servicos/googleSheetsService')
 
 class exerciciosController {
 
@@ -342,6 +343,11 @@ try {
                         mensagem: `${counter}) Resposta errada`,
                     });
                 }
+                /*googleSheetsService.addRow(
+                    '1jxXjHn_YbrNJQsbziOtM6cBY5aifymppaP_R1CVX2Ec',
+                    'Exercicios1!A:B',
+                    [counter, result[0].correta]
+                );*/
             } catch (error) {
                 console.error(`Erro ao buscar alternativa com ID ${id}:`, error);
             }

@@ -183,15 +183,9 @@ app.post('/editarExercicios', isAuthenticated(1), ExerciciosController.editarExe
 app.get('/buscarExerciciosTexto', isAuthenticated(1), ExerciciosController.findExercicioByText)
 app.get('/buscarExerciciosPorConteudo', isAuthenticated(1), ExerciciosController.findExerciciosbyConteudo)
 
-
-
-
     // aluno
 app.get("/exercicios-aluno/:id",isLoggedIn(), ConteudosController.exibirConteudoAluno);
 app.post('/verificarRespostas',isLoggedIn(), ExerciciosController.verificarRespostas);
-
-
-
 
 //CONTEUDOS
     //admin
