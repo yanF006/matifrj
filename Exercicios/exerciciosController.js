@@ -314,46 +314,59 @@ try {
 
     async verificarRespostas(req, res) {
         const { respostas } = req.body;
-        const resultados = [];
-        const referencia = [];
         const respostasCorretas = [];
-        var counter = 0
+
+        // Pegue o nome do usuário da sessão (ajuste conforme sua estrutura)
+        const nome = req.session.user ? req.session.user.username : 'Desconhecido';
+        const data = new Date().toLocaleString('pt-BR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        });
+        const hora = new Date().toLocaleTimeString('pt-BR', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+
+        // Array que vai para a planilha: [nome, data, certo1, certo2, ...]
+        const linhaParaSheet = [];
+
+        var counter = 0;
+        var counterCorretas = 0;
         for (const resposta of respostas) {
             const id = resposta.resposta;
             const exerc_id = resposta.perguntaId;
-            counter++
+            counter++;
             try {
                 const result = await Exercicios.findAlternativaByID(id, exerc_id);
                 const reference = await Exercicios.findAlternativasCorretas(exerc_id);
-    
-                resultados.push(result[0]); 
-                referencia.push(reference[0]);
-    
-                
-                if (result[0].alternativa_id === reference[0].alternativa_id) {
-                    respostasCorretas.push({
-                        perguntaId: exerc_id,
-                        correta: true,
-                        mensagem: `${counter}) Resposta correta`,
-                    });
-                } else {
-                    respostasCorretas.push({
-                        perguntaId: exerc_id,
-                        correta: false,
-                        mensagem: `${counter}) Resposta errada`,
-                    });
-                }
-                /*googleSheetsService.addRow(
-                    '1jxXjHn_YbrNJQsbziOtM6cBY5aifymppaP_R1CVX2Ec',
-                    'Exercicios1!A:B',
-                    [counter, result[0].correta]
-                );*/
+
+                const correta = result[0].alternativa_id === reference[0].alternativa_id ? 1 : 0;
+                counterCorretas += correta;
+                respostasCorretas.push({
+                    perguntaId: exerc_id,
+                    correta: !!correta,
+                    mensagem: `${counter}) Resposta ${correta ? 'correta' : 'errada'}`,
+                });
+
+                // Adiciona o resultado (0 ou 1) na linha
+                linhaParaSheet.push(correta);
             } catch (error) {
                 console.error(`Erro ao buscar alternativa com ID ${id}:`, error);
+                // Se quiser, pode adicionar um valor padrão em caso de erro:
+                linhaParaSheet.push('erro');
             }
         }
-    
-        // Retornar os resultados para o frontend
+
+        linhaParaSheet.unshift(nome, data, hora, counterCorretas); // Adiciona o número de respostas corretas no início da linha
+
+        // Adiciona apenas UMA linha na planilha
+        await googleSheetsService.addRow(
+            '1jxXjHn_YbrNJQsbziOtM6cBY5aifymppaP_R1CVX2Ec',
+            'Exercicios1!A:Z', // Ajuste o range conforme o máximo de colunas
+            linhaParaSheet, // Note o array dentro de array!
+        );
+
         res.json({
             sucesso: true,
             respostas: respostasCorretas,
