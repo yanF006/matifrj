@@ -202,9 +202,7 @@ app.post('/editarConteudos', isAuthenticated(1), ConteudosController.editarConte
 
 //app.get('/exibirConteudo', isAuthenticated(1), ConteudosController.exibir)
 
-
-
-
+app.get('/desempenho', isAuthenticated(1), ExerciciosController.tabelaDesempenho);
 
 app.listen(8070,()=>{
     console.log("Servidor Rodando")

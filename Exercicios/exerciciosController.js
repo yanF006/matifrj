@@ -1,5 +1,6 @@
 const Exercicios =  require('./exercicios')
 const Conteudos = require('../Conteudos/conteudos')
+const Users = require('../Users/users')
 const knex = require('../database/database')
 const googleSheetsService = require('../servicos/googleSheetsService')
 
@@ -433,6 +434,19 @@ try {
         var conteudos = await Conteudos.findAll()
          res.render('gerenciar-atividades', {exercicios:exercicios, conteudos:conteudos})
     }    
+
+    async tabelaDesempenho(req, res) {
+        // Exemplo usando Google Sheets
+        const spreadsheetId = '1jxXjHn_YbrNJQsbziOtM6cBY5aifymppaP_R1CVX2Ec';
+        const range = 'Exercicios1!A:Z'; // Ajuste conforme sua planilha
+        const dados = await googleSheetsService.getSheetValues(spreadsheetId, range);
+
+        // Se quiser filtrar por turma ou atividade, envie também as listas de turmas/atividades
+        const turmas = await Users.findAll(); // Exemplo, ajuste para seu model
+        const atividades = await Exercicios.findAll(); // Exemplo, ajuste para seu model
+
+        res.render('tabela-desempenho', { dados, turmas, atividades });
+    }
 }
     
 

@@ -10,7 +10,7 @@ var knex = require('knex')({
     }
   });
 
-module.exports = knex
+module.exports = knex;
 /*var knex = require('knex')({
     client: 'mysql2',
     connection: {

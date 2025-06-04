@@ -1,0 +1,52 @@
+<%- include('partials/header.ejs'); %>
+<link rel="stylesheet" href="/CSS/tabela-desempenho.css">
+<body>
+    <%- include('partials/navbar-admin.ejs'); %>
+    <div class="container mt-5">
+        <h2>Desempenho dos Alunos</h2>
+        <form method="GET" action="/desempenho">
+            <label for="turma">Filtrar por turma:</label>
+            <select name="turma" id="turma">
+                <option value="">Todas</option>
+                <% turmas.forEach(turma => { %>
+                    <option value="<%= turma %>"><%= turma %></option>
+                <% }) %>
+            </select>
+            <label for="atividade">Filtrar por atividade:</label>
+            <select name="atividade" id="atividade">
+                <option value="">Todas</option>
+                <% atividades.forEach(atividade => { %>
+                    <option value="<%= atividade.id %>"><%= atividade.descricao %></option>
+                <% }) %>
+            </select>
+            <button type="submit">Filtrar</button>
+        </form>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Turma</th>
+                    <th>Atividade</th>
+                    <th>Acertos</th>
+                    <!-- Adicione mais colunas se quiser -->
+                </tr>
+            </thead>
+            <tbody>
+                <% dados.forEach(linha => { %>
+                    <tr>
+                        <td><%= linha[0] %></td>
+                        <td><%= linha[1] %></td>
+                        <td><%= linha[2] %></td>
+                        <td><%= linha[3] || '' %></td>
+                        <td><%= linha[4] || '' %></td>
+                        <td><%= linha[5] || '' %></td>
+                        <!-- Adapte os índices conforme sua planilha -->
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+<%- include('partials/footer.ejs'); %>
