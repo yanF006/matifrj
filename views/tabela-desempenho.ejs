@@ -1,27 +1,27 @@
 <%- include('partials/header.ejs'); %>
-<link rel="stylesheet" href="/CSS/tabela-desempenho.css">
+<link rel="stylesheet" href="/CSS/index copy.css">
 <body>
     <%- include('partials/navbar-admin.ejs'); %>
     <div class="container mt-5">
         <h2>Desempenho dos Alunos</h2>
         <form method="GET" action="/desempenho">
-            <label for="turma">Filtrar por turma:</label>
-            <select name="turma" id="turma">
+            <label for="turma" class="form-label">Filtrar por turma:</label>
+            <select name="turma" id="turma" class="form-select">
                 <option value="">Todas</option>
                 <% turmas.forEach(turma => { %>
                     <option value="<%= turma %>"><%= turma %></option>
                 <% }) %>
             </select>
-            <label for="atividade">Filtrar por atividade:</label>
-            <select name="atividade" id="atividade">
+            <label for="atividade" class="form-label">Filtrar por atividade:</label>
+            <select name="atividade" id="atividade" class="form-select">
                 <option value="">Todas</option>
                 <% atividades.forEach(atividade => { %>
                     <option value="<%= atividade.id %>"><%= atividade.descricao %></option>
                 <% }) %>
             </select>
-            <button type="submit">Filtrar</button>
+            <button type="submit" class="btn btn-success">Filtrar</button>
         </form>
-        <table class="table table-bordered mt-3">
+        <table class="table table-responsive-md table-hover table-bordered mt-3">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -47,6 +47,7 @@
                 <% }) %>
             </tbody>
         </table>
+        <script src="JS/script.js"></script>
     </div>
 </body>
 <%- include('partials/footer.ejs'); %>

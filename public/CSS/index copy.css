@@ -1,0 +1,53 @@
+
+.main-logo {
+    height: 25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.maior {
+    justify-content: center;
+    text-align: center;
+    font-size: 10rem;
+  font-weight: bold;
+}
+.menor {
+    margin: 0px;
+    justify-content: center;
+    text-align: center;
+    font-size: 2.5rem;
+}
+.botoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.anos {
+    background-color:#FFFFFF;
+    color: black;
+    height: 5rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px solid #008004;
+    width: 15rem;
+    margin: 1rem;
+
+}
+.anos:hover {
+    background-color: #008004;
+    color: #FFFFFF;
+
+}
+
+
+@media (max-width:768px) {
+    .maior {
+        font-size: 4.5rem;
+    
+    }
+}

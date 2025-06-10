@@ -445,7 +445,7 @@ try {
         const turmas = await Users.findAll(); // Exemplo, ajuste para seu model
         const atividades = await Exercicios.findAll(); // Exemplo, ajuste para seu model
 
-        res.render('tabela-desempenho', { dados, turmas, atividades });
+        res.render('tabela-desempenho', { dados, turmas, atividades, user: req.session.user });
     }
 }
     
