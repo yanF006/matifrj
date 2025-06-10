@@ -20,4 +20,4 @@ module.exports = knex;
       database: 'matifrj',
     }
   });
-module.exports = knex;*
+module.exports = knex;*/
