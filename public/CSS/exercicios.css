@@ -16,7 +16,6 @@
     background-color: #007bff; /* Cor da linha de destaque */
   }
 .card {
-    min-width: 90vw;
     flex-shrink: 0;
 }
 .titulo{

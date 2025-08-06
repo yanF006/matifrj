@@ -1,6 +1,7 @@
 <%- include ('partials/header.ejs'); %>
     <title>Atividades</title>
     <link rel="stylesheet" href="/CSS/atividades.css">
+    <script src="/JS/atividades.js"></script>
 <body>
     <%- include ('partials/navbar-admin.ejs'); %>
 
@@ -17,7 +18,20 @@
                             <!-- <input id="mathInput" type="text">
                             <label id="mathOutput"></label> -->
                           </div>
-                         
+
+                            <label for="">Tipo de atividade</label> <br>
+                            <select class="form-select" name="tipo_atividade" id="tipo_atividade">
+                                <option value="1">Sem prazo</option>
+                                <option value="2">Com prazo</option>
+                            </select> <br>
+
+                            <div class="hora">
+                                <label for="">Data de Início</label> <br>
+                                <input type="date" class="form-control" name="data_inicio"> <br>
+
+                                <label for="">Data de entrega</label> <br>
+                                <input type="date" class="form-control" name="data_entrega"> <br>
+                            </div>
 
                      <label for="">Conteudo relacionado</label> <br>
                                <select class="form-select" name ="id_conteudo">
