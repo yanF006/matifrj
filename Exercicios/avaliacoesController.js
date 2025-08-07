@@ -3,6 +3,7 @@ const knex = require('../database/database')
 
 const exibirAvaliacoes = async (req, res) => {
     try {
+        var {id} = req.params;
         const avaliacoesAtivas = await Exercicios.findAvaliacoesAtivas();
         res.render('avaliacoes', { avaliacoes: avaliacoesAtivas });
     } catch (error) {
