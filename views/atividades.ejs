@@ -1,7 +1,6 @@
 <%- include ('partials/header.ejs'); %>
     <title>Atividades</title>
     <link rel="stylesheet" href="/CSS/atividades.css">
-    <script src="/JS/atividades.js"></script>
 <body>
     <%- include ('partials/navbar-admin.ejs'); %>
 
@@ -12,7 +11,7 @@
                 <h5 class="card-header">Atividade</h5>
                 <div class="card-body">
                     <h5 class="card-title"></h5>
-                        <div class="mb-3">
+                        <div class="mSb-3">
                             <label for="editor" class="form-label">Enunciado</label>
                             <textarea id="editor" name="descricao" class="form-control"></textarea>
                             <!-- <input id="mathInput" type="text">
@@ -21,6 +20,7 @@
 
                             <label for="">Tipo de atividade</label> <br>
                             <select class="form-select" name="tipo_atividade" id="tipo_atividade" onchange="exibirCampos()">
+                                <option value="0"></option>
                                 <option value="1">Com prazo</option>
                                 <option value="2">Sem prazo</option>
                             </select> <br>
@@ -30,7 +30,7 @@
                                 <input type="date" class="form-control" name="data_inicio"> <br>
 
                                 <label for="">Data de entrega</label> <br>
-                                <input type="date" class="form-control" name="data_entrega"> <br>
+                                <input type="date" class="form-control" name="data_fim"> <br>
                             </div>
 
                      <label for="">Conteudo relacionado</label> <br>
@@ -52,11 +52,11 @@
 
           <form action="">
             <div class="card">
-                <h5 class="card-header">Teste</h5>
+                <h5 class="card-header">Testar LaTeX</h5>
                 <div class="card-body">
                     <h5 class="card-title"></h5>
                         <div class="mb-3">
-                            <input id="mathInput" class="form-control" type="text">
+                            <input id="mathInput" class="form-control" type="text" placeholder="$$\dfrac{3}{4}$$">
                             <label id="mathOutput" class="form-label"></label>
                         </div>
                     </div>

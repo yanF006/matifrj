@@ -8,7 +8,6 @@
 body {  
     font-family: 'Poppins', sans-serif;
     margin: 0;
-    background-color: #BFDDF3;
     background-position: center bottom;
     background-size: cover;
 }
@@ -21,10 +20,6 @@ a {
     cursor: pointer;
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
-}
-.card-header {
-    background-color: #f4f3e0;
-
 }
 .main {
     display: flex;
@@ -51,6 +46,10 @@ a {
 .remove-alternative{
     background-color: red;
 }
+.hora {
+    display: none;
+}
+
 /* Responsivo */
 @media (min-width:768px) {
     .content {
