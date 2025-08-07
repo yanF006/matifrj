@@ -20,9 +20,9 @@
                           </div>
 
                             <label for="">Tipo de atividade</label> <br>
-                            <select class="form-select" name="tipo_atividade" id="tipo_atividade">
-                                <option value="1">Sem prazo</option>
-                                <option value="2">Com prazo</option>
+                            <select class="form-select" name="tipo_atividade" id="tipo_atividade" onchange="exibirCampos()">
+                                <option value="1">Com prazo</option>
+                                <option value="2">Sem prazo</option>
                             </select> <br>
 
                             <div class="hora">
@@ -41,7 +41,7 @@
                                     <% }) %>
                             </select>
 
-                     <button class="btn btn-success" type="submit" >Enviar</button>
+                     <button class="btn btn-success mt-2" type="submit" >Enviar</button>
                     </div>
                 </div>
         
@@ -135,6 +135,18 @@
       output.innerHTML = `${input}`;
       MathJax.typeset();
     }
+
+    function exibirCampos() {
+        var tipoAtividade = document.getElementById("tipo_atividade").value;
+        var camposHora = document.querySelector(".hora");
+
+        if (tipoAtividade == "1") {
+            camposHora.style.display = "block";
+        } else {
+            camposHora.style.display = "none";
+        }
+    }
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
