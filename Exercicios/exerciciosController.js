@@ -7,9 +7,9 @@ const googleSheetsService = require('../servicos/googleSheetsService')
 class exerciciosController {
 
     async create(req,res){
-       var {descricao, id_conteudo} = req.body
+       var {descricao, data_inicio, data_fim, id_conteudo} = req.body
        if (descricao){
-           var exercicioID = await Exercicios.insertContentExercicio(descricao, id_conteudo)
+           var exercicioID = await Exercicios.insertContentExercicio(descricao, data_inicio, data_fim, id_conteudo)
            res.redirect('/alternativas/' + exercicioID)
        }else{
         res.send('<script>alert("Campo vazio, preencha corretamente!"); window.location.href="/atividades";</script>')

@@ -10,6 +10,7 @@ const CategoriaController = require('./Categorias/categoriasController')
 const jwt = require("jsonwebtoken")
 const bcrypt = require('bcrypt')
 var secretJWT =  "aaaajdhdhfnpm "
+const AvaliacoesController = require('./Exercicios/avaliacoesController')
 
 const session = require('express-session');
 const conteudosController = require("./Conteudos/conteudosController");
@@ -185,6 +186,7 @@ app.get('/buscarExerciciosPorConteudo', isAuthenticated(1), ExerciciosController
 
     // aluno
 app.get("/exercicios-aluno/:id",isLoggedIn(), ConteudosController.exibirConteudoAluno);
+app.get("/avaliacoes", isLoggedIn(), AvaliacoesController.exibirAvaliacoes);
 app.post('/verificarRespostas',isLoggedIn(), ExerciciosController.verificarRespostas);
 
 //CONTEUDOS

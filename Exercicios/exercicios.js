@@ -3,8 +3,18 @@ const knex = require('../database/database')
 
 class Exercicios {
 
-    async new(descricao){
-       const [exercicioID] = await knex.insert({descricao}).table("exercicios")
+    async new(descricao, data_inicio, data_fim){
+        var exercicioID;
+
+        if(data_inicio && data_inicio)
+        {
+            exercicioID = await knex.insert({descricao, data_inicio, data_fim}).table("exercicios")
+        }
+        else
+        {
+            exercicioID = await knex.insert({descricao}).table("exercicios")
+        }
+       
        this.showID(exercicioID)
        return exercicioID;
 
@@ -59,29 +69,43 @@ class Exercicios {
     }
 
 
-    async joinExerciciosAlternativas(id){
-        var data = await knex.select(['exercicios.id', 'descricao', 'alternativa_id', 'conteudo', 'correta', 'id_conteudo']).table('exercicios').rightJoin('exercicios_alternativas','exercicios_alternativas.exercicio_id', 'exercicios.id').rightJoin('alternativas', 'alternativas.id','exercicios_alternativas.alternativa_id').rightJoin('exercicios_conteudos','exercicios_conteudos.id_exercicio', 'exercicios.id').where({id_conteudo:id})
+    async joinExerciciosAlternativas(id) {
+        const data = await knex
+            .select([
+                'exercicios.id',
+                'descricao',
+                'alternativa_id',
+                'conteudo',
+                'correta',
+                'id_conteudo'
+            ])
+            .table('exercicios')
+            .rightJoin('exercicios_alternativas', 'exercicios_alternativas.exercicio_id', 'exercicios.id')
+            .rightJoin('alternativas', 'alternativas.id', 'exercicios_alternativas.alternativa_id')
+            .rightJoin('exercicios_conteudos', 'exercicios_conteudos.id_exercicio', 'exercicios.id')
+            .where({ id_conteudo: id })
+            .whereNull('exercicios.data_inicio') // <-- só exercícios sem data
+            .whereNull('exercicios.data_fim');   // <-- só exercícios sem data
+
         const exercises = {};
 
-    data.forEach(row => {
-        if (!exercises[row.id]) {
-            exercises[row.id] = {
-                id: row.id,
-                descricao: row.descricao,
-                alternativas: []
-            };
-        }
+        data.forEach(row => {
+            if (!exercises[row.id]) {
+                exercises[row.id] = {
+                    id: row.id,
+                    descricao: row.descricao,
+                    alternativas: []
+                };
+            }
             exercises[row.id].alternativas.push({
                 id: row.alternativa_id,
                 conteudo: row.conteudo,
                 correta: row.correta
             });
-        
-       
-    });
+        });
 
-    return Object.values(exercises);
-}
+        return Object.values(exercises);
+    }
 
     async findAlternativaByID(id_alternativa, id_exercicio){
     var data = await knex.select(['exercicios_alternativas.exercicio_id', 'exercicios_alternativas.alternativa_id', 'correta']).table('alternativas').rightJoin('exercicios_alternativas','exercicios_alternativas.alternativa_id', 'alternativas.id').where({alternativa_id: id_alternativa}).andWhere({exercicio_id:id_exercicio})
@@ -144,8 +168,8 @@ if(!exercises[exercicio.id]){
     return Object.values(exercises)
 }
 
-    async insertContentExercicio(descricao, id_conteudo){
-    var id_exercicio = await this.new(descricao)
+    async insertContentExercicio(descricao, data_inicio, data_fim, id_conteudo){
+    var id_exercicio = await this.new(descricao, data_inicio, data_fim)
     await knex.insert({id_exercicio,id_conteudo}).table('exercicios_conteudos')
     return id_exercicio;
 }
@@ -253,6 +277,45 @@ async findbyConteudo(id){
 
 }
     
+async findAvaliacoesAtivas() {
+    const now = new Date();
+        const data = await knex
+            .select([
+                'exercicios.id',
+                'descricao',
+                'alternativa_id',
+                'conteudo',
+                'correta',
+                'id_conteudo'
+            ])
+            .table('exercicios')
+            .rightJoin('exercicios_alternativas', 'exercicios_alternativas.exercicio_id', 'exercicios.id')
+            .rightJoin('alternativas', 'alternativas.id', 'exercicios_alternativas.alternativa_id')
+            .rightJoin('exercicios_conteudos', 'exercicios_conteudos.id_exercicio', 'exercicios.id')
+            .whereNotNull('exercicios.data_inicio') // <-- só exercícios sem data
+            .whereNotNull('exercicios.data_fim')   // <-- só exercícios sem data
+            .where('exercicios.data_inicio', '<=', now) // Data de início no passado ou presente
+            .where('exercicios.data_fim', '>=', now); // Data de fim no futuro ou presente
+
+        const exercises = {};
+
+        data.forEach(row => {
+            if (!exercises[row.id]) {
+                exercises[row.id] = {
+                    id: row.id,
+                    descricao: row.descricao,
+                    alternativas: []
+                };
+            }
+            exercises[row.id].alternativas.push({
+                id: row.alternativa_id,
+                conteudo: row.conteudo,
+                correta: row.correta
+            });
+        });
+
+        return Object.values(exercises);
+}
 
 
 }

@@ -1,0 +1,99 @@
+<%- include ('partials/header.ejs'); %>
+<title>Avaliações - MATIFRJ</title>
+<link rel="stylesheet" href="/CSS/exercicios.css">
+<body>
+    <%- include ('partials/navbar-admin.ejs'); %>
+    
+    <div class="titulo">
+      <h1>
+          Avaliações Ativas
+      </h1>
+    </div>
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Avaliações disponíveis</h5>
+              <% if (avaliacoes.length === 0) { %>
+                <p>Não há avaliações disponíveis no momento.</p>
+              <% } %>
+              <% avaliacoes.forEach((avaliacao, index) => { %>
+                <div class="mb-4 p-3 border rounded">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <strong><%= index + 1 %>)</strong>
+                    <div>
+                      <b><%- avaliacao.descricao %></b>
+                      <br>
+                      <small>
+                        Disponível de 
+                        <%= new Date(avaliacao.data_inicio).toLocaleString('pt-BR') %> 
+                        até 
+                        <%= new Date(avaliacao.data_fim).toLocaleString('pt-BR') %>
+                      </small>
+                    </div>
+                  </div>
+                  <% avaliacao.alternativas.forEach(alt => { %>
+                    <input type="radio" name="pergunta<%=avaliacao.id%>" class="opcao" value="<%=alt.id%>"> <%- alt.conteudo %> <br>
+                  <% }) %>
+                </div>
+              <% }) %>
+              <% if (avaliacoes.length > 0) { %>
+                <div class="enviar">
+                  <button type="submit" style="margin-top: 20px;" class="btn btn-primary" onclick="verificarRespostasAvaliacao()" >Enviar avaliação</button>
+                </div>
+                <div id="resultado" style="margin-top: 20px;"></div>
+                <div id="totalCorretas" style="margin-top: 10px; font-weight: bold;"></div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/JS/script.js"></script>
+    <script>
+    function verificarRespostasAvaliacao(){
+      const respostasSelecionadas = []
+      const opcaoselecionado = document.querySelectorAll('input[type="radio"]:checked')
+
+      opcaoselecionado.forEach(opcao =>{
+        respostasSelecionadas.push({
+          perguntaId: opcao.name.replace('pergunta', ''),
+          resposta: opcao.value
+        });
+      })
+      fetch('/verificarRespostasAvaliacao', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ respostas: respostasSelecionadas })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.sucesso) {
+                  const resultadoDiv = document.getElementById('resultado');
+                  resultadoDiv.innerHTML = '';
+                  data.respostas.forEach(resposta => {
+                      const p = document.createElement('p');
+                      p.innerText = resposta.mensagem;
+                      p.style.color = resposta.correta ? 'green' : 'red';
+                      resultadoDiv.appendChild(p);
+                  });
+                  const totalCorretas = data.respostas.filter(r => r.correta).length;
+                  document.getElementById('totalCorretas').innerText = `Você acertou ${totalCorretas} de ${data.respostas.length}`;
+              } else {
+                  document.getElementById('resultado').innerText = "Erro ao processar respostas.";
+              }
+          })
+          .catch(error => {
+              console.error("Erro ao verificar respostas:", error);
+          });
+    }
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script  defer id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</body>
+<%- include ('partials/footer.ejs'); %>
