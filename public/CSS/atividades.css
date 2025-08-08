@@ -51,6 +51,11 @@ a {
 .remove-alternative{
     background-color: red;
 }
+
+.hora {
+    display: none;
+}
+
 /* Responsivo */
 @media (min-width:768px) {
     .content {
