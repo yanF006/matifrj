@@ -8,17 +8,16 @@ class exerciciosController {
 
     async create(req,res){
        var {descricao, data_inicio, data_fim, id_conteudo} = req.body
-       if (descricao){
+       if (data_inicio && data_fim && !(data_inicio <= data_fim))
+       {
+            res.send('<script>alert("Data de início não pode ser maior que a data de fim!"); window.location.href="/atividades";</script>')
+       }
+       else if (descricao){
            var exercicioID = await Exercicios.insertContentExercicio(descricao, data_inicio, data_fim, id_conteudo)
            res.redirect('/alternativas/' + exercicioID)
        }else{
         res.send('<script>alert("Campo vazio, preencha corretamente!"); window.location.href="/atividades";</script>')
        }
-       
-        
-       
-        
-
     }
 
 

@@ -184,6 +184,11 @@ h5.card-header {
     color: #000000;
 }
 
+.card
+{
+    min-width: 0vh !important;
+}
+
 /* Responsivo */
 @media (min-width:768px) {
     .content {
