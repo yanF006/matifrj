@@ -272,19 +272,23 @@ UNLOCK TABLES;
 
 -- Dump completed on 2025-01-31  9:07:50
 
-/*DROP TABLE IF EXISTS 'exercicios_users';
+/*CREATE TABLE `avaliacoes` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `descricao` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `data_inicio` datetime DEFAULT NULL,
+  `data_fim` datetime DEFAULT NULL,
+  `peso` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE 'exercicios_users_alternativas' (
-  'id' int unsigned NOT NULL AUTO_INCREMENT,
-  'exercicio_id' int unsigned DEFAULT '0',
-  'user_id' int unsigned DEFAULT '0',
-  'alternativa_id' int unsigned DEFAULT '0',
-  'data' datetime DEFAULT NULL,
-  PRIMARY KEY ('id'),
-  KEY 'FK_exercicios_users_alternativas_exercicios' ('exercicio_id'),
-  KEY 'FK_exercicios_users_alternativas_users' ('user_id'),
-  KEY 'FK_exercicios_users_alternativas_alternativas' ('alternativa_id'),
-  CONSTRAINT 'FK_exercicios_users_alternativas_exercicios' FOREIGN KEY ('exercicio_id') REFERENCES 'exercicios' ('id') ON DELETE CASCADE,
-  CONSTRAINT 'FK_exercicios_users_alternativas_users' FOREIGN KEY ('user_id') REFERENCES 'users' ('id') ON DELETE CASCADE,
-  CONSTRAINT 'FK_exercicios_users_alternativas_alternativas' FOREIGN KEY ('alternativa_id') REFERENCES 'alternativas' ('id') ON DELETE CASCADE
+CREATE TABLE `avaliacoes_exercicios` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `avaliacao_id` int unsigned DEFAULT '0',
+  `exercicio_id` int unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `FK_avaliacoes_exercicios_avaliacoes` (`avaliacao_id`),
+  KEY `FK_avaliacoes_exercicios_exercicios` (`exercicio_id`),
+  CONSTRAINT `FK_avaliacoes_exercicios_avaliacoes` FOREIGN KEY (`avaliacao_id`) REFERENCES `avaliacoes` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_avaliacoes_exercicios_exercicios` FOREIGN KEY (`exercicio_id`) REFERENCES `exercicios` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;*/
