@@ -30,6 +30,14 @@
                   <% avaliacao.alternativas.forEach(alt => { %>
                     <input type="radio" name="pergunta<%=avaliacao.id%>" class="opcao" value="<%=alt.id%>"> <%- alt.conteudo %> <br>
                   <% }) %>
+                  <div>
+                      <small>
+                        Disponível de 
+                        <%= new Date(avaliacao.data_inicio).toLocaleDateString('pt-BR') %>
+                        até
+                        <%= new Date(avaliacao.data_fim).toLocaleDateString('pt-BR') %>
+                      </small>
+                    </div>
                 </div>
               <% }) %>
               <% if (avaliacoes.length > 0) { %>
