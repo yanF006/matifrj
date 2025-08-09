@@ -18,7 +18,7 @@
                                     <% }) %>
     
                                 </select>
-                                <button class=" mt-1 btn btn-success">Buscar</button>
+                                <button class=" mt-2 btn btn-success">Buscar</button>
                     </div>
                 </form>
     
@@ -27,11 +27,11 @@
                         <label for="q" class="form-label">Buscar pelo título</label>
                         <div class="search-container">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" class="form-control" id="q" name="q" placeholder="Buscar...">
+                            <input type="text" class="form-control box-shadow-disabilitada" id="q" name="q" placeholder="Buscar...">
                             
                         </div>
     
-                        <button class="mt-1 btn btn-success" type="submit">Buscar</button>
+                        <button class="mt-2 btn btn-success" type="submit">Buscar</button>
                     </div>
                 </form>
 
@@ -47,7 +47,7 @@
                             <h5 class="card-title" id="cardTitle-1"><%= result.titulo %></h5>
 
                             <a href="/editar-conteudos/<%= result.id %>" class="btn btn-primary">Editar</a>
-                            <button class="remove-conteudo btn btn-danger" data-id="<%= result.id %>">Excluir</button>
+                            <button class="remove-conteudo btn btn-danger ms-2" data-nome="<%= result.titulo %>" data-id="<%= result.id %>">Excluir</button>
                         </div>
                     </div>
                 </div>
@@ -62,8 +62,12 @@
 <script>
      document.querySelectorAll(".remove-conteudo").forEach(button => {
         button.addEventListener('click', function() {
+            const nome = this.getAttribute('data-nome');
+            confirmar = window.confirm(`Tem certeza que deseja deletar o conteúdo ${nome}? Essa ação é irreversível.`);
+            if (!confirmar) {
+                return;
+            }
             const conteudoId = this.getAttribute('data-id');
-    
             
 
             fetch(`http://localhost:8070/delete-conteudo/${conteudoId}`, {

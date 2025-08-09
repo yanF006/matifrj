@@ -4,7 +4,7 @@
 <body>
     <%- include ('partials/navbar-admin.ejs'); %>
             <main class="content px-3 py-2">
-                <div class="container-fluid">
+                <div class="container">
                     <div class="mb-3">
                         <form method = "POST" action="/categoriasEditar/<%= categorias[0].id%>">
                         <div class="card">
@@ -13,7 +13,7 @@
                                 <h5 class="card-title"></h5>
                                 <input type="text" class="form-control m-2" name="nome" value="<%= categorias[0].nome %>"  placeholder="Digite a categoria a ser criada">
                                <input type="hidden" name="id" value="<%= categorias[0].id%>">
-                                <button class="btn btn-success" type="submit">Confirmar</button>
+                                <button class="btn btn-success m-2" type="submit">Confirmar</button>
                             </div>
                         </div>
 

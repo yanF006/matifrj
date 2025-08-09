@@ -50,6 +50,10 @@
     margin: 0;
     max-width: 70%;
 }
+.box-shadow-disabilitada:focus {
+    box-shadow: none; /*evita uma borda feia em volta do input*/
+}
+
 @media (max-width:768px) {
     .adm {
         flex-direction: column;
