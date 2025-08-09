@@ -283,6 +283,8 @@ async findAvaliacoesAtivas() {
             .select([
                 'exercicios.id',
                 'descricao',
+                'data_inicio',
+                'data_fim',
                 'alternativa_id',
                 'conteudo',
                 'correta',
@@ -304,6 +306,8 @@ async findAvaliacoesAtivas() {
                 exercises[row.id] = {
                     id: row.id,
                     descricao: row.descricao,
+                    data_inicio: row.data_inicio,
+                    data_fim: row.data_fim,
                     alternativas: []
                 };
             }
