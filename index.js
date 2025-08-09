@@ -186,7 +186,8 @@ app.get('/buscarExerciciosPorConteudo', isAuthenticated(1), ExerciciosController
 
     // aluno
 app.get("/exercicios-aluno/:id",isLoggedIn(), ConteudosController.exibirConteudoAluno);
-app.get("/avaliacoes", isLoggedIn(), AvaliacoesController.exibirAvaliacoes);
+app.get("/avaliacoes", isAuthenticated(1), AvaliacoesController.exibirAvaliacoes);
+app.get("/avaliacoes-aluno", isLoggedIn(), AvaliacoesController.exibirAvaliacoesAluno);
 app.post('/verificarRespostas',isLoggedIn(), ExerciciosController.verificarRespostas);
 
 //CONTEUDOS
