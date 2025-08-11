@@ -11,6 +11,7 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require('bcrypt')
 var secretJWT =  "aaaajdhdhfnpm "
 const AvaliacoesController = require('./Exercicios/avaliacoesController')
+const AvisosController = require('./Avisos/avisosController');
 
 const session = require('express-session');
 const conteudosController = require("./Conteudos/conteudosController");
@@ -82,9 +83,7 @@ app.post("/categoriasEditar/:id",isAuthenticated(1), CategoriaController.editarC
 
 //PAGINA INICIAL
 //admin
-app.get("/index-admin",isAuthenticated(1),(req,res) => {
-    res.render("index");
-});
+app.get("/index-admin",isAuthenticated(1), AvisosController.exibirAvisos);
 //aluno
 app.get("/index-aluno", isLoggedIn(), (req,res) => {
     res.render("index-aluno");

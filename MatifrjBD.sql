@@ -53,6 +53,7 @@ CREATE TABLE `avisos` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `titulo` varchar(200) NOT NULL DEFAULT '0',
   `descricao` varchar(200) NOT NULL DEFAULT '0',
+  `data_fim` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
