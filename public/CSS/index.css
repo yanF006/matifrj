@@ -47,7 +47,9 @@
 .anos:hover, .anos:active {
     background-color: rgb(0, 255, 128);
 }
-
+.altura {
+    height: 250px;
+}
 
 @media (max-width:768px) {
     .maior {

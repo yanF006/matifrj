@@ -16,6 +16,9 @@ const AvisosController = require('./Avisos/avisosController');
 const session = require('express-session');
 const conteudosController = require("./Conteudos/conteudosController");
 
+const mysql = require('mysql2/promise');
+const dayjs = require('dayjs');
+
 app.use(session({
     secret: 'Quincas1234',   // Substitua por uma chave secreta segura
     resave: false,             // Não resalvar a sessão se não houver alterações
