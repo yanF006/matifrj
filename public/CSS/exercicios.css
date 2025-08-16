@@ -24,6 +24,10 @@
   margin-top: 30px;
   font-weight: bolder;
 }
+.cinza {
+  background-color: #494949;
+  color: #ffffff;
+}
 
 p {
   margin: 0px;
