@@ -1,4 +1,5 @@
 const User = require('./users')
+const Turma = require('./Turmas/turmas')
 var jwt = require('jsonwebtoken')
 var bcrypt = require('bcryptjs')
 var secretJWT = 'jdbuefbuhfihhgeieig'
@@ -60,21 +61,22 @@ class UserController{
     async findByIDUser(req,res){
         var {id}= req.params
         var usuario = await User.findByID(id)
-        res.render('editar-perfilAluno', {usuario:usuario})
-
+        var turma = await Turma.findByID(usuario[0].turma)
+        res.render('editar-perfilAluno', { usuario: usuario[0], turma: turma })
     }
 
     async findByIDAdmin(req,res){
         var {id}= req.params
         var usuario = await User.findByID(id)
-        res.render('editar-perfilAdmin', {usuario:usuario})
-
+        var turma = await Turma.findByID(usuario[0].turma)
+        res.render('editar-perfilAdmin', { usuario: usuario[0], turma: turma })
     }
     async findByIDUserShow(req,res){
         var {id}= req.params
         var usuario = await User.findByID(id)
+        var turma = await Turma.findByID(usuario[0].turma)
+
         if (usuario && usuario.length > 0) {
-            // Atualiza a sessão com os dados do usuário encontrado
             req.session.user = req.session.user || {};
             req.session.user.id = usuario[0].id;
             req.session.user.username = usuario[0].name;
@@ -82,11 +84,10 @@ class UserController{
             req.session.user.email = usuario[0].email;
             req.session.user.role = usuario[0].role;
             req.session.user.cpf = usuario[0].cpf;
+            req.session.user.turmaName = turma[0].nome; 
 
-            // Renderiza a página com os dados do usuário
-            res.render('perfil-aluno', { usuario: usuario[0] });
+            res.render('perfil-aluno', { usuario: usuario[0], turma: turma });
         } else {
-            // Usuário não encontrado
             res.status(404).send('Usuário não encontrado');
         }
 
@@ -95,6 +96,7 @@ class UserController{
     async findByIDAdminShow(req,res){
         var {id}= req.params
         var usuario = await User.findByID(id)
+        var turma = await Turma.findByID(usuario[0].turma)
         if (usuario && usuario.length > 0) {
             // Atualiza a sessão com os dados do usuário encontrado
             req.session.user = req.session.user || {};
@@ -104,9 +106,9 @@ class UserController{
             req.session.user.email = usuario[0].email;
             req.session.user.role = usuario[0].role;
             req.session.user.cpf = usuario[0].cpf;
-
+            req.session.user.turmaName = turma[0].nome;
             // Renderiza a página com os dados do usuário
-            res.render('perfil-admin', { usuario: usuario[0] });
+            res.render('perfil-admin', { usuario: usuario[0], turma: turma });
         } else {
             // Usuário não encontrado
             res.status(404).send('Usuário não encontrado');
@@ -144,7 +146,8 @@ class UserController{
         await User.new(email,password,name,cpf,turma) //"await" garante que a operação realmente foi executada
         
         var user =  await User.findByEmail(email)
-        req.session.user = {id:user.id, username: user.name, role: user.role, turma: user.turma };
+        var turmaNome = await Turma.findByID(user.turma)
+        req.session.user = {id:user.id, username: user.name, role: user.role, turma: user.turma, turmaName: turmaNome[0].nome};
                 req.session.save((err) => { // Garante que a sessão seja salva antes de redirecionar
                     if (err) console.error(err);
                     if (user.role === 1) {
@@ -163,13 +166,14 @@ class UserController{
         var {email,password} = req.body
 
         var user =  await User.findByEmail(email)
+        var turma = await Turma.findByID(user.turma)
 
         if (user!=undefined){
             var result = await bcrypt.compare(password, user.password)
 
             if(result){
 
-                req.session.user = { id: user.id, username: user.name, role: user.role, turma: user.turma };
+                req.session.user = { id: user.id, username: user.name, role: user.role, turma: user.turma, turmaName: turma[0].nome };
                 req.session.save((err) => { // Garante que a sessão seja salva antes de redirecionar
                     if (err) console.error(err);
                     if (user.role === 1) {

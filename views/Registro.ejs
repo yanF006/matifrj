@@ -15,9 +15,12 @@
                     <input id="Floatingcpf" type="text" placeholder="123.456.789-10" class="form-control" name="cpf" minlength="14" maxlength="14"  onkeyup="mascara_cpf()" required> 
                     <label for="Floatingcpf label">CPF</label>
                 </div>
-                <div class="textfield form-floating">
-                    <input id="FloatingTurma" type="text" placeholder="Turma"  name="turma" class="form-control" required> 
-                    <label for="FloatingTurma label">Turma</label>
+                <div>
+                    <select class="form-select" id="select" name="turma" required>
+                        <% turmas.forEach(turma => { %>
+                            <option value="<%= turma.id %>"><%= turma.nome %></option>
+                        <% }) %>
+                    </select>
                 </div>
                 <div class="textfield form-floating">
                     <input id="FloatingInput" type="email" placeholder="exemplo@gmail.com" name="email" class="form-control" required> 

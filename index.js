@@ -16,6 +16,9 @@ const AvisosController = require('./Avisos/avisosController');
 const session = require('express-session');
 const conteudosController = require("./Conteudos/conteudosController");
 
+const turmas = require("./Users/Turmas/turmas");
+const turmasController = require("./Users/Turmas/turmasController");
+
 const mysql = require('mysql2/promise');
 const dayjs = require('dayjs');
 
@@ -98,9 +101,7 @@ app.get("/index-aluno", isLoggedIn(), (req,res) => {
 app.get("/",(req,res) => {
     res.render("login");
 });
-app.get("/cadastro",(req,res) => {
-    res.render("Registro");
-});
+app.get("/cadastro", turmasController.index);
 
 app.get("/Autenticar",(req,res) => {
     res.render("Autenticar");
