@@ -4,17 +4,18 @@ const Categorias = require('../Categorias/categorias')
 class conteudosController{
     async create(req,res){
         var{titulo, descricao, serie, bimestre,categoria}= req.body;
+        var id = req.session.user.id;
         if (titulo && descricao && serie && bimestre && categoria) {
             try {
                 // Executa a função somente se os valores forem válidos
-                await Conteudos.new(titulo,descricao,bimestre,serie,categoria);
+                await Conteudos.new(titulo,descricao,bimestre,serie,categoria, id);
                 res.send('<script>alert("Conteúdo cadastrado com sucesso!"); window.location.href="/ConteudosCadastrar";</script>')
                 
                 
                 
             } catch (error) {
                 res.send('<script>alert("Erro ao cadastrar conteúdo!"); window.location.href="/ConteudosCadastrar";</script>')
-                res.status(500).send('Erro ao atualizar o conteúdo.');
+                //res.status(500).send('Erro ao atualizar o conteúdo.');
             }
         } else {
             // Caso algum valor seja inválido, retorna um erro ou redireciona

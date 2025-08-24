@@ -2,18 +2,19 @@ const Exercicios =  require('./exercicios')
 const Conteudos = require('../Conteudos/conteudos')
 const Users = require('../Users/users')
 const knex = require('../database/database')
-const googleSheetsService = require('../servicos/googleSheetsService')
+//const googleSheetsService = require('../servicos/googleSheetsService')
 
 class exerciciosController {
 
     async create(req,res){
        var {descricao, data_inicio, data_fim, id_conteudo} = req.body
+       var id = req.session.user.id
        if (data_inicio && data_fim && !(data_inicio <= data_fim))
        {
             res.send('<script>alert("Data de início não pode ser maior que a data de fim!"); window.location.href="/atividades";</script>')
        }
        else if (descricao){
-           var exercicioID = await Exercicios.insertContentExercicio(descricao, data_inicio, data_fim, id_conteudo)
+           var exercicioID = await Exercicios.insertContentExercicio(descricao, data_inicio, data_fim, id_conteudo, id)
            res.redirect('/alternativas/' + exercicioID)
        }else{
         res.send('<script>alert("Campo vazio, preencha corretamente!"); window.location.href="/atividades";</script>')
@@ -361,11 +362,11 @@ try {
         linhaParaSheet.unshift(nome, data, hora, counterCorretas); // Adiciona o número de respostas corretas no início da linha
 
         // Adiciona apenas UMA linha na planilha
-        await googleSheetsService.addRow(
+        /*await googleSheetsService.addRow(
             '1jxXjHn_YbrNJQsbziOtM6cBY5aifymppaP_R1CVX2Ec',
             'Exercicios1!A:Z', // Ajuste o range conforme o máximo de colunas
             linhaParaSheet, // Note o array dentro de array!
-        );
+        );*/
 
         res.json({
             sucesso: true,
@@ -434,7 +435,7 @@ try {
          res.render('gerenciar-atividades', {exercicios:exercicios, conteudos:conteudos})
     }    
 
-    async tabelaDesempenho(req, res) {
+    /*async tabelaDesempenho(req, res) {
         // Exemplo usando Google Sheets
         const spreadsheetId = '1jxXjHn_YbrNJQsbziOtM6cBY5aifymppaP_R1CVX2Ec';
         const range = 'Exercicios1!A:Z'; // Ajuste conforme sua planilha
@@ -445,7 +446,7 @@ try {
         const atividades = await Exercicios.findAll(); // Exemplo, ajuste para seu model
 
         res.render('tabela-desempenho', { dados, turmas, atividades, user: req.session.user });
-    }
+    }*/
 }
     
 

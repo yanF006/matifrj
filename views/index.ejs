@@ -30,7 +30,7 @@
                                         </h5>
                                         <p class="card-text"><%= aviso.descricao %></p>
                                         <div class="data-fim">
-                                            <small>Válido até <%= aviso.data_fim %></small>
+                                            <small>Válido até <%= new Date(aviso.data_fim).toLocaleDateString('pt-BR') %></small>
                                         </div>
                                     </div>
                                 </div>

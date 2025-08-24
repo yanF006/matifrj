@@ -17,7 +17,7 @@ var knex = require('knex')({
       host : 'localhost',
       user: 'root',
       password: '12345678',
-      database: 'matifrj',
+      database: 'matifrjBD',
     }
   });
 module.exports = knex;

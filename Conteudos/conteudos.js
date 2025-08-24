@@ -1,8 +1,9 @@
 const knex = require('../database/database')
 
+
 class Conteudos{
-    async new(titulo, descricao, bimestre, serie,categoria){
-        await knex.insert({titulo, descricao,bimestre,serie,categoria}).table('conteudos')
+    async new(titulo, descricao, bimestre, serie,categoria, user_id){
+        await knex.insert({titulo, descricao,bimestre,serie,categoria, user_id}).table('conteudos')
     }
 
     async findAll(){

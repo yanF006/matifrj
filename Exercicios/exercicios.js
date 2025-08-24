@@ -3,16 +3,16 @@ const knex = require('../database/database')
 
 class Exercicios {
 
-    async new(descricao, data_inicio, data_fim){
+    async new(descricao, data_inicio, data_fim, user_id){
         var exercicioID;
 
         if(data_inicio && data_inicio)
         {
-            exercicioID = await knex.insert({descricao, data_inicio, data_fim}).table("exercicios")
+            exercicioID = await knex.insert({descricao, data_inicio, data_fim, user_id}).table("exercicios")
         }
         else
         {
-            exercicioID = await knex.insert({descricao}).table("exercicios")
+            exercicioID = await knex.insert({descricao, user_id}).table("exercicios")
         }
        
        this.showID(exercicioID)
@@ -168,8 +168,8 @@ if(!exercises[exercicio.id]){
     return Object.values(exercises)
 }
 
-    async insertContentExercicio(descricao, data_inicio, data_fim, id_conteudo){
-    var id_exercicio = await this.new(descricao, data_inicio, data_fim)
+    async insertContentExercicio(descricao, data_inicio, data_fim, id_conteudo, user_id){
+    var id_exercicio = await this.new(descricao, data_inicio, data_fim, user_id)
     await knex.insert({id_exercicio,id_conteudo}).table('exercicios_conteudos')
     return id_exercicio;
 }
