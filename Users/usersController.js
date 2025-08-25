@@ -84,7 +84,7 @@ class UserController{
             req.session.user.email = usuario[0].email;
             req.session.user.role = usuario[0].role;
             req.session.user.cpf = usuario[0].cpf;
-            req.session.user.turmaName = turma[0].nome; 
+            if(turma) req.session.user.turmaName = turma[0].nome; 
 
             res.render('perfil-aluno', { usuario: usuario[0], turma: turma });
         } else {
@@ -106,7 +106,7 @@ class UserController{
             req.session.user.email = usuario[0].email;
             req.session.user.role = usuario[0].role;
             req.session.user.cpf = usuario[0].cpf;
-            req.session.user.turmaName = turma[0].nome;
+            if(turma) req.session.user.turmaName = turma[0].nome;
             // Renderiza a página com os dados do usuário
             res.render('perfil-admin', { usuario: usuario[0], turma: turma });
         } else {
@@ -173,7 +173,8 @@ class UserController{
 
             if(result){
 
-                req.session.user = { id: user.id, username: user.name, role: user.role, turma: user.turma, turmaName: turma[0].nome };
+                if(turma) req.session.user = { id: user.id, username: user.name, role: user.role, turma: user.turma, turmaName: turma[0].nome};
+                else req.session.user = { id: user.id, username: user.name, role: user.role, turma: user.turma, turmaName: null};
                 req.session.save((err) => { // Garante que a sessão seja salva antes de redirecionar
                     if (err) console.error(err);
                     if (user.role === 1) {

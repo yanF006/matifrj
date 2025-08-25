@@ -206,6 +206,11 @@ app.get('/buscarConteudosPorCategoria', isAuthenticated(1), ConteudosController.
 app.post("/ConteudosCadastrar", isAuthenticated(1),ConteudosController.create)
 app.post('/editarConteudos', isAuthenticated(1), ConteudosController.editarConteudo)
 
+//Turmas
+app.get('/turmas', isAuthenticated(1), turmasController.index2)
+app.post('/turmasCriar', isAuthenticated(1), turmasController.criar)
+app.delete('/turmasDeletar/:id', isAuthenticated(1), turmasController.deletar)
+
 //app.get('/exibirConteudo', isAuthenticated(1), ConteudosController.exibir)
 
 //app.get('/desempenho', isAuthenticated(1), ExerciciosController.tabelaDesempenho);

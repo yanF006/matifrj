@@ -1,0 +1,102 @@
+<%- include ('partials/header.ejs'); %>
+    <title>Turmas - MATFRJ</title>
+    <link rel="stylesheet" href="/CSS/categorias.css">
+<body>
+    <%- include ('partials/navbar-admin.ejs'); %>
+    <div class="container">
+        <h1 class="text-center my-4">Gerenciador de Turmas</h1>
+        <div class="row">
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <form method = "POST" action="/turmasCriar">
+                        <div class="card">
+                            <h5 class="card-header">Cadastrar Turma</h5>
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <input type="text" class="form-control m-2" name="nome"  placeholder="Digite o nome da turma a ser criada">
+                                <select name="serie" id="serie">
+                                    <option value=""></option>
+                                    <option value="1">1º ano</option>
+                                    <option value="2">2º ano</option>
+                                    <option value="3">3º ano</option>
+                                    <option value="4">Outro</option>
+                                </select>
+                                <button class="btn btn-success m-2" type="submit">Criar</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                        <div class="card mt-5">
+                            <h5 class="card-header">Turmas</h5>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    <!-- cada turma é um li -->
+                                    <% turmas.forEach(result => { %>
+                                        <li class="cargo list-group-item d-flex justify-content-between align-items-center mt-2"> <%= result.nome %>
+                                            <div>
+                                                <a href="/editar-turma/<%= result.id%>" > <button class="btn-func btn btn-warning" >Editar</button></a>
+                                                <button data-nome="<%= result.nome%>" data-id="<%= result.id%>" id="removeTurma"  class="btn-func btn btn-danger">Deletar</button>
+                                            </div>
+                                        </li> 
+                                        <% }) %>
+                                    
+                            
+                                </ul>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+<script src="https://cdn.tiny.cloud/1/tippdkxqm4sb1wehnj2bla645u5sztdojzln239n7b2sd27w/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+
+document.querySelectorAll("#removeTurma").forEach(button => {
+        button.addEventListener('click', function() {
+            const nome = this.getAttribute('data-nome');
+            confirmar = window.confirm(`Tem certeza que deseja deletar a turma ${nome}? Essa ação é irreversível.`);
+            if (!confirmar) {
+                return;
+            }
+            const turmaId = this.getAttribute('data-id');
+            
+            fetch(`http://localhost:8070/turmasDeletar/${turmaId}`, {
+                method: 'DELETE',
+            }).then(response => {
+    if (response.redirected) {
+        // Se o redirecionamento acontecer, você pode usar:
+        window.location.href = response.url;
+    }
+})
+.catch(error => {
+    console.error('Erro:', error);
+});
+        })
+            
+    });
+
+
+    tinymce.init({
+      selector: '#editor',
+      plugins: 'lists link image table code',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | code',
+      menubar: false,
+      height: 300,
+      skin: 'bootstrap',
+      content_css: 'bootstrap'
+    });
+
+</script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script> -->
+    <script src="/JS/script.js"></script>
+</body>
+
+<%- include ('partials/footer.ejs'); %>

@@ -1,6 +1,18 @@
 const knex = require('../../database/database');
 
 class Turmas {
+    async new(nome, serie) {
+        await knex.insert({nome, serie}).table('turmas')
+    }
+
+    async delete(id) {
+        await knex('users')
+        .where({ turma: id })
+        .update({ turma: null });
+                
+        await knex.delete().where({id:id}).table('turmas')
+    }
+
     async findAll(){
         try{
             var result = await knex.select(['id','nome']).table('turmas')
