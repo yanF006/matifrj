@@ -2,6 +2,16 @@ const knex = require('../database/database');
 
 class Avisos 
 {
+    async new(titulo, descricao, data_fim, user_id) {
+        try {
+            await knex.insert({titulo, descricao, data_fim, user_id}).table('avisos');
+        }
+        catch (error) {
+            console.error('Erro ao inserir aviso:', error);
+            throw error;
+        }
+    }
+
     async findAvisosAtivos() 
     {
         try {

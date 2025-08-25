@@ -1,0 +1,82 @@
+<%- include ('partials/header.ejs'); %> 
+<link rel="stylesheet" href="/CSS/cadConteudo.css">
+<body onload="">
+    <%- include ('partials/navbar-admin.ejs'); %>
+    <div class="container-fluid mt-5">
+        <div class="mb-3">
+          <form method = "POST" action="/AvisosCadastrar">
+            <div class="card">
+                <h5 class="card-header">Cadastro de Aviso</h5>
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                        <label for="">Título</label> <br>
+                        <input class="form-control" name="titulo"  type="text"> <br>
+                        <div class="mb-3">
+                            <label for="editor" class="form-label">Conteúdo</label>
+                            <textarea id="editor" name="descricao" class="form-control"></textarea>
+                            <!-- <input id="mathInput" type="text">
+                            <label id="mathOutput"></label> -->
+                        </div>
+                        <div class="hora">
+                                <div id="labels_data">
+                                    <label for="">Data de término</label> <br>
+                                    <input type="date" class="form-control" name="data_fim"> <br>
+                                </div>
+                        </div>
+                     <button class="btn btn-success mt-2" type="submit" >Enviar</button>
+                    </div>
+                </div>
+        
+            </div>
+
+          </form>
+
+
+          <form action="">
+            <div class="card">
+                <h5 class="card-header">Testar LaTeX</h5>
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                        <div class="mb-3">
+                            <input id="mathInput" class="form-control" type="text">
+                            <label id="mathOutput" class="form-label"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+       
+            <button class="btn btn-warning w-25 m-lg-3" style="border-radius: 10px;" onclick="renderMath()">Teste</button>
+<!-- <button onclick="renderMath()">Botao</button> -->
+
+<script src="https://cdn.tiny.cloud/1/tippdkxqm4sb1wehnj2bla645u5sztdojzln239n7b2sd27w/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+      selector: '#editor',
+      plugins: 'lists link image table code',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | code',
+      menubar: false,
+      height: 300,
+      skin: 'bootstrap',
+      content_css: 'bootstrap',
+
+    });
+
+    function renderMath() {
+      const input = document.getElementById("mathInput").value;
+      const output = document.getElementById("mathOutput");
+      output.innerHTML = `${input}`;
+      MathJax.typeset();
+    }
+
+    // function renderMath() {
+    //   const input = document.getElementById("mathInput").value;
+    //         const output = document.getElementById("mathOutput");
+    //         output.innerHTML = $$${input}$$;
+    // }
+
+   
+</script>
+  <script src="/JS/script.js"></script>
+</body>
+<%- include ('partials/footer.ejs'); %>

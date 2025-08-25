@@ -84,7 +84,7 @@ CREATE TABLE `avisos` (
   PRIMARY KEY (`id`),
   KEY `FK_avisos_user` (`user_id`),
   CONSTRAINT `FK_avisos_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,6 +93,7 @@ CREATE TABLE `avisos` (
 
 LOCK TABLES `avisos` WRITE;
 /*!40000 ALTER TABLE `avisos` DISABLE KEYS */;
+INSERT INTO `avisos` VALUES (24,'Prova','Amanhã será aplicada a prova do 2º bimestre, sobre trigonometria','2025-08-25 00:00:00',71),(25,'Prova','<p>Amanh&atilde; haver&aacute; outra prova sobre outra coisaaa!!!</p>','2025-08-25 00:00:00',71),(26,'Prova','<p>Amanh&atilde; &eacute; um novo dia</p>','2025-08-26 00:00:00',71);
 /*!40000 ALTER TABLE `avisos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,7 +283,7 @@ CREATE TABLE `turmas` (
   `nome` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
   `serie` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -291,7 +292,7 @@ CREATE TABLE `turmas` (
 
 LOCK TABLES `turmas` WRITE;
 /*!40000 ALTER TABLE `turmas` DISABLE KEYS */;
-INSERT INTO `turmas` VALUES (13,'205',2),(14,'305',3);
+INSERT INTO `turmas` VALUES (15,'105',1),(16,'104',1),(18,'102',1),(19,'205',2);
 /*!40000 ALTER TABLE `turmas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,7 +315,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `email` (`email`),
   KEY `FK_users_turmas` (`turma`),
   CONSTRAINT `FK_users_turmas` FOREIGN KEY (`turma`) REFERENCES `turmas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,7 +324,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (71,'Yan','yanmartinsporto@gmail.com','$2a$10$YBsFBMUAS0DsBBNAAvhmpO2YicD3YCoWaECY.BsS0Am0VgYOLI966',1,'00000000000000',13);
+INSERT INTO `users` VALUES (71,' Yan','yanmartinsporto@gmail.com','$2a$10$YBsFBMUAS0DsBBNAAvhmpO2YicD3YCoWaECY.BsS0Am0VgYOLI966',1,'00000000000000',19),(72,'Yan2','martinsportofigueirayan@gmail.com','$2a$10$DQIYvBprZ.SMsmWrHM8kbOigzS/.uHQGh9plEz38DYrJOCpQjtCW.',0,'00000000000000',NULL),(73,'Yan3','yanmartinsporto3@gmail.com','$2a$10$RtVVZKdXJd.zkWCsobThde8FEWU7NmyQU3etuKw1NCJlvwcZyKqqW',0,'00000000000000',NULL),(74,'Yan4','yanmartinsporto4@gmail.com','$2a$10$wRrrQF2mQrOP6MSQdEuwse/tpG5SQoJWGtxpKj.JpNtAnYyJ8e5e2',0,'00000000000000',NULL),(75,'0','yanmartinsporto5@gmail.com','$2a$10$IHf9tqSHMYwgThXNZVwGTO19kfULrZmXm.Zunv0qozKXt.Oag2xlC',0,'00000000000000',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -336,4 +337,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-24 11:26:56
+-- Dump completed on 2025-08-25 10:01:36

@@ -211,6 +211,12 @@ app.get('/turmas', isAuthenticated(1), turmasController.index2)
 app.post('/turmasCriar', isAuthenticated(1), turmasController.criar)
 app.delete('/turmasDeletar/:id', isAuthenticated(1), turmasController.deletar)
 
+//Avisos
+app.get('/cadastro-avisos', isAuthenticated(1), (req, res) => {
+    res.render('cadastroAvisos');
+});
+app.post('/AvisosCadastrar', isAuthenticated(1), AvisosController.criarAviso);
+
 //app.get('/exibirConteudo', isAuthenticated(1), ConteudosController.exibir)
 
 //app.get('/desempenho', isAuthenticated(1), ExerciciosController.tabelaDesempenho);
