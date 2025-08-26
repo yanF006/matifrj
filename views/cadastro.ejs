@@ -15,7 +15,7 @@
                     <input id="Floatingcpf" type="text" placeholder="123.456.789-10" class="form-control" name="cpf" minlength="14" maxlength="14"  onkeyup="mascara_cpf()" required> 
                     <label for="Floatingcpf label">CPF</label>
                 </div>
-                <div>
+                <div class="textfield form-floating">
                     <select class="form-select" id="select" name="turma" required>
                         <% turmas.forEach(turma => { %>
                             <option value="<%= turma.id %>"><%= turma.nome %></option>
