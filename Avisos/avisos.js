@@ -1,4 +1,5 @@
 const knex = require('../database/database');
+const Users = require('../Users/users');
 
 class Avisos 
 {
@@ -16,7 +17,13 @@ class Avisos
     {
         try {
             const now = new Date();
-            const avisosAtivos = await knex('avisos').where('data_fim', '>=', now);
+            const avisosAtivos = await knex('avisos')
+                .where('data_fim', '>=', now)
+                .join('users', 'avisos.user_id', '=', 'users.id')
+                .select(
+                    'avisos.*',
+                    'users.name as criador_nome'
+                );
             return avisosAtivos;
         } catch (error) {
             console.error('Erro ao buscar avisos ativos:', error);

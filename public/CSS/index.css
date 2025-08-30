@@ -51,6 +51,10 @@
     height: 250px;
 }
 
+blockquote, blockquote>p {
+    margin: 0;
+}
+
 @media (max-width:768px) {
     .maior {
         font-size: 4.5rem;
