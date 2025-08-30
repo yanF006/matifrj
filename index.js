@@ -10,7 +10,6 @@ const CategoriaController = require('./Categorias/categoriasController')
 const jwt = require("jsonwebtoken")
 const bcrypt = require('bcrypt')
 var secretJWT =  "aaaajdhdhfnpm "
-const AvaliacoesController = require('./Exercicios/avaliacoesController')
 const AvisosController = require('./Avisos/avisosController');
 
 const session = require('express-session');
@@ -21,6 +20,8 @@ const turmasController = require("./Users/Turmas/turmasController");
 
 const mysql = require('mysql2/promise');
 const dayjs = require('dayjs');
+
+const avaliacoesController = require('./Avaliacoes/avaliacoesController');
 
 app.use(session({
     secret: 'Quincas1234',   // Substitua por uma chave secreta segura
@@ -91,9 +92,7 @@ app.post("/categoriasEditar/:id",isAuthenticated(1), CategoriaController.editarC
 //admin
 app.get("/index-admin",isAuthenticated(1), AvisosController.exibirAvisos);
 //aluno
-app.get("/index-aluno", isLoggedIn(), (req,res) => {
-    res.render("index-aluno");
-});
+app.get("/index-aluno", isLoggedIn(), AvisosController.exibirAvisosAluno);
 
 
 
@@ -189,8 +188,8 @@ app.get('/buscarExerciciosPorConteudo', isAuthenticated(1), ExerciciosController
 
     // aluno
 app.get("/exercicios-aluno/:id",isLoggedIn(), ConteudosController.exibirConteudoAluno);
-app.get("/avaliacoes", isAuthenticated(1), AvaliacoesController.exibirAvaliacoes);
-app.get("/avaliacoes-aluno", isLoggedIn(), AvaliacoesController.exibirAvaliacoesAluno);
+//app.get("/avaliacoes", isAuthenticated(1), AvaliacoesController.exibirAvaliacoes);
+//app.get("/avaliacoes-aluno", isLoggedIn(), AvaliacoesController.exibirAvaliacoesAluno);
 app.post('/verificarRespostas',isLoggedIn(), ExerciciosController.verificarRespostas);
 
 //CONTEUDOS
@@ -216,6 +215,10 @@ app.get('/cadastro-avisos', isAuthenticated(1), (req, res) => {
     res.render('cadastroAvisos');
 });
 app.post('/AvisosCadastrar', isAuthenticated(1), AvisosController.criarAviso);
+
+//Avaliacoes
+app.get('/cadastroAvaliacao', isAuthenticated(1), avaliacoesController.paginaCadastro);
+app.post('/avaliacaoCriar', isAuthenticated(1), avaliacoesController.criarAvaliacao);
 
 //app.get('/exibirConteudo', isAuthenticated(1), ConteudosController.exibir)
 

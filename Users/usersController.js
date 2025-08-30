@@ -166,13 +166,12 @@ class UserController{
         var {email,password} = req.body
 
         var user =  await User.findByEmail(email)
-        var turma = await Turma.findByID(user.turma)
 
         if (user!=undefined){
             var result = await bcrypt.compare(password, user.password)
+            var turma = await Turma.findByID(user.turma)
 
             if(result){
-
                 if(turma) req.session.user = { id: user.id, username: user.name, role: user.role, turma: user.turma, turmaName: turma[0].nome};
                 else req.session.user = { id: user.id, username: user.name, role: user.role, turma: user.turma, turmaName: null};
                 req.session.save((err) => { // Garante que a sessão seja salva antes de redirecionar

@@ -16,6 +16,28 @@
                         <a class="anos col-sm-4" href="/Bimestres-aluno/3">TERCEIRO ANO</a>
                     </div>
                         
+                    <div class="div-avisos row justify-content-center mt-3">
+                        <% avisos.forEach(aviso => { %>
+                            <div class="aviso col-md-4">
+                                <div class="card altura">
+                                    <div class="card-body d-flex flex-column justify-content-end">
+                                        <h5 class="card-title">
+                                            <strong>
+                                                <%= aviso.titulo %>
+                                                <i class="bi bi-envelope-exclamation float-end "></i>
+                                            </strong>
+                                        </h5>
+                                        <blockquote>
+                                            <p class="card-text"><%- aviso.descricao %></p>
+                                        </blockquote>
+                                        <cite class="float-end">~<%= aviso.criador_nome %></cite>
+                                        <div class="data-fim mt-auto text-end">
+                                            <small>Válido até <%= new Date(aviso.data_fim).toLocaleDateString('pt-BR') %></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
                     </div>
                 </div>
             </main>

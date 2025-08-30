@@ -13,6 +13,17 @@ class AvisosController
         }
     }
 
+    async exibirAvisosAluno(req, res) {
+        try {
+            const avisosAtivos = await Avisos.findAvisosAtivos();
+            console.log('Avisos Ativos:', avisosAtivos);
+            res.render('index-aluno', {avisos: avisosAtivos});
+        } catch (error) {
+            console.error('Erro ao exibir avisos:', error);
+            res.status(500).send('Erro ao exibir avisos');
+        }
+    }
+
     async criarAviso(req, res) {
         var { titulo, descricao, data_fim } = req.body;
         const user_id = req.session.user.id;
