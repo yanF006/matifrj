@@ -62,7 +62,8 @@ class UserController{
         var {id}= req.params
         var usuario = await User.findByID(id)
         var turma = await Turma.findByID(usuario[0].turma)
-        res.render('editar-perfilAluno', { usuario: usuario[0], turma: turma })
+        var turmas = await Turma.findAll()
+        res.render('editar-perfilAluno', { usuario: usuario[0], turma: turma, turmas: turmas})
     }
 
     async findByIDAdmin(req,res){
