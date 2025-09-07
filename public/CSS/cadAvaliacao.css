@@ -1,0 +1,14 @@
+.main {
+    min-width: 90w;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .btn{
+    margin: 10px;
+}
+}
+
+.select_width {
+    width: 200px !important;
+}

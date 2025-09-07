@@ -1,51 +1,67 @@
 <%- include ('partials/header.ejs'); %>
-<title>Avaliações - MATIFRJ</title>
-<link rel="stylesheet" href="/CSS/exercicios.css">
+<link rel="stylesheet" href="/CSS/cargos.css">
+<title>Avaliações Ativas</title>
 <body>
-    <%- include ('partials/navbar-aluno.ejs'); %>
-    
-    <div class="titulo">
-      <h1>
-          Avaliações
-      </h1>
-    </div>
-
+    <%- include ('partials/navbar-admin.ejs'); %>
     <div class="container mt-4">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Avaliações disponíveis</h5>
-              <% if (avaliacoes.length === 0) { %>
-                <p>Não há avaliações disponíveis no momento.</p>
-              <% } %>
-              <% avaliacoes.forEach((avaliacao, index) => { %>
-                <div class="mb-4 p-3 border rounded">
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <strong><%= index + 1 %>)</strong>
-                    <div>
-                      <%- avaliacao.descricao %>
-                    </div>
-                  </div>
-                  <% avaliacao.alternativas.forEach(alt => { %>
-                    <input type="radio" name="pergunta<%=avaliacao.id%>" class="opcao" value="<%=alt.id%>"> <%- alt.conteudo %> <br>
-                  <% }) %>
-                </div>
-              <% }) %>
-              <% if (avaliacoes.length > 0) { %>
-                <div class="enviar">
-                  <button type="submit" style="margin-top: 20px;" class="btn btn-primary" onclick="verificarRespostasAvaliacao()" >Enviar avaliação</button>
-                </div>
-                <div id="resultado" style="margin-top: 20px;"></div>
-                <div id="totalCorretas" style="margin-top: 10px; font-weight: bold;"></div>
-              <% } %>
+        <h1>Avaliações Ativas</h1>
+        <div class="card p-4">
+            <div class="mt-4">
+                <div class="card-header"><h2>Avaliações</h2></div>
+                <ul class="list-group" id="adminList">   
+                    <% if (avaliacoes.length > 0) { %>
+                        <% avaliacoes.forEach(avaliacao => { %>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="/avaliacao/<%= avaliacao.id %>"><strong><%= avaliacao.nome %></strong> <br> <i><%= new Date(avaliacao.data_inicio).toLocaleDateString() %> a <%= new Date(avaliacao.data_fim).toLocaleDateString() %></i></a>
+                            </li>
+                        <% }) %>
+                      <% } else { %>
+                        <p>Nenhuma avaliação encontrada.</p>
+                      <% } %>
+                    
+                </ul>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
+            
+        </div>
+        
+    </div>
+    
+        <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.btn-func');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const userId = button.getAttribute('data-id');
+                const newRole = button.getAttribute('data-role');
+
+                try {
+                    const response = await fetch('/update-role', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id: userId, role: newRole })
+                    });
+
+                    if (response.ok) {
+                        // Atualize a interface conforme necessário
+                        alert('Cargo atualizado com sucesso!');
+                        location.reload(); // Atualiza a página para refletir a mudança
+                    } else {
+                        alert('Erro ao atualizar cargo.');
+                    }
+                } catch (error) {
+                    console.error('Erro ao enviar requisição:', error);
+                }
+            });
+        });
+    });
+</script>
+
+    
+    <script src="/JS/cargos.js"></script>
     <script src="/JS/script.js"></script>
-    <script  defer id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 <%- include ('partials/footer.ejs'); %>

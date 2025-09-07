@@ -1,5 +1,5 @@
 <%- include ('partials/header.ejs'); %> 
-<link rel="stylesheet" href="/CSS/cadConteudo.css">
+<link rel="stylesheet" href="/CSS/cadAvaliacao.css">
 <body onload="">
     <%- include ('partials/navbar-admin.ejs'); %>
     <div class="container-fluid mt-5">
@@ -25,23 +25,35 @@
                     </div>
                 </div>
         
-            </div>
-          </form>
-
-          <div class="card">
-            <div class="card-body">
-                <div class="list-group">
-                    <% exercicios.forEach(exercicio => { %>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="exercicios.id">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    <%- exercicio.descricao%>
-                                </label>
-                            </div>
-                    <% }) %>
-                </div>
+            </div>      
+        <div class="card">
+          <h5 class="card-header">Seleção de exercícios</h5>
+          <div class="card-body">
+              <h5 class="card-title">Filtrar por categoria</h5>
+              <div>
+                  <select id="id_categoria" class="form-select select_width" name="id_categoria" form="avaliacaoForm">
+                        <option value="" selected></option>
+                        <% categorias.forEach(categoria => { %>
+                            <option value="<%= categoria.id %>"><%= categoria.nome %></option>
+                        <% }) %>
+                  </select>
+                <button type="button" class="btn btn-primary mt-2" onclick="filtrarExercicios()">Filtrar</button>
+              </div>
+              <div class="list-group mt-5">
+                 <% if (exercicios.length > 0) { %>
+                  <% exercicios.forEach(exercicio => { %>
+                      <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="exercicio-<%= exercicio.id %>" name="exercicios[]" value="<%= exercicio.id %>">
+                          <label class="form-check-label" for="exercicio-<%= exercicio.id %>">
+                              <%- exercicio.descricao %>
+                          </label>
+                      </div>
+                  <% }) %>
+                 <% } %>
               </div>
           </div>
+        </div>
+
           <!-- const exercicios = knex.select('*').from('exercicios');
           res.render('cadastroAvaliacao', { exercicios: exercicios }); -->
 
@@ -88,6 +100,10 @@
     //         output.innerHTML = $$${input}$$;
     // }
 
+    function filtrarExercicios() {
+        const categoriaId = document.getElementById('id_categoria').value;
+        window.location.href = `/buscarExerciciosPorCategoria?id_categoria=${categoriaId}`;
+    }
    
 </script>
   <script src="/JS/script.js"></script>

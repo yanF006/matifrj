@@ -64,8 +64,17 @@ class Exercicios {
 
 
     async findAll(){
-        var descricao = await knex.select(['id', 'descricao']).table('exercicios')
-       return descricao
+    var descricao = await knex
+        .select([
+            'exercicios.id',
+            'exercicios.descricao',
+            'exercicios.user_id',
+            'exercicios.categoria_id',
+            'categorias.nome as categoria_nome'
+        ])
+        .from('exercicios')
+        .leftJoin('categorias', 'categorias.id', 'exercicios.categoria_id');
+    return descricao
     }
 
 
@@ -275,6 +284,11 @@ async findbyConteudo(id){
     var result = await knex.select(['exercicios.id', 'descricao', 'exercicios_conteudos.id_conteudo']).table('exercicios').rightJoin('exercicios_conteudos', 'exercicios_conteudos.id_exercicio', 'exercicios.id').where({id_conteudo:id})
         return result
 
+}
+
+async findByCategoria(id){
+    var result = await knex.select(['exercicios.id', 'descricao', 'exercicios.categoria_id']).table('exercicios').where({categoria_id:id})
+    return result
 }
     
 async findAvaliacoesAtivas() {

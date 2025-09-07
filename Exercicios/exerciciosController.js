@@ -447,6 +447,13 @@ try {
 
         res.render('tabela-desempenho', { dados, turmas, atividades, user: req.session.user });
     }*/
+
+    async findExerciciosbyCategoria(req,res){
+        var {id_categoria}= req.query
+        var exercicios = await Exercicios.findByCategoria(id_categoria)
+        var categorias = await knex.select('*').table('categorias')
+        res.render('cadastroAvaliacao', {exercicios:exercicios, categorias:categorias} )
+    }
 }
     
 

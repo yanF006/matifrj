@@ -187,13 +187,13 @@ class conteudosController{
             }
 
             async findConteudosbyCategoria(req,res){
-                    var {id_categoria}= req.query
+                    var {id_categoria} = req.query
                     if (id_categoria) {
                         try {
                             // Executa a função somente se os valores forem válidos
                             var resultado = await Conteudos.findConteudobyCategoria(id_categoria)
                             var categorias= await Categorias.findAll()
-                             res.render('gerenciar-conteudos', {resultado:resultado, categorias:categorias})
+                            res.render('gerenciar-conteudos', {resultado:resultado, categorias:categorias})
                         } catch (error) {
                             res.send('<script>alert("Erro ao procurar conteúdo."); window.location.href="/GerenciarConteudos";</script>')
                             res.status(500).send('Erro ao atualizar o conteúdo.');
