@@ -41,8 +41,9 @@ class AvisosController
     {
         const {id} = req.params
         const avaliacao = await Avaliacoes.findById(id)
-        const exercicios = await Avaliacoes.findExexerciciosByAvaliacaoId(id) || [];
-        res.render("avaliacao", {avaliacao: avaliacao, exercicios: exercicios})
+        const exercicios = await Avaliacoes.findExerciciosByAvaliacaoId(id);
+        const totalCorretas = req.query.totalCorretas; // <-- ADICIONE ESTA LINHA
+        res.render("avaliacao", {avaliacao: avaliacao, exercicios: exercicios, totalCorretas})
     }
 
     async exibirAvaliacaoAdmin(req, res)
@@ -55,9 +56,11 @@ class AvisosController
 
     async exibirResultadosAvaliacao(req, res)
     {
-        /*const {id} = req.params
+        const {id} = req.params
         const resultados = await Avaliacoes.resultadosAvaliacao(id)
-        res.render("resultadosAvaliacao", {resultados: resultados})*/
+        const avaliacao = await Avaliacoes.findById(id)
+        const exercicios = await await Avaliacoes.findExerciciosByAvaliacaoId(id);
+        res.render("resultadosAvaliacao", {resultados: resultados, avaliacao: avaliacao, exercicios: exercicios})
     }
 
     async findExerciciosByAvaliacaoId(req, res)
@@ -78,7 +81,18 @@ class AvisosController
             // Caso algum valor seja inválido, retorna um erro ou redireciona
             res.send('<script>alert("Selecione alguma categoria para pesquisar!"); window.location.href="/GerenciarConteudos";</script>')            
         }
-    } 
+    }
+
+    async verificarRespostasAvaliacao(req, res) {
+        try {
+            const { avaliacaoId, respostas } = req.body;
+            const totalCorretas = await Avaliacoes.verificarRespostasAvaliacao(avaliacaoId, respostas, req.session.user.id);
+            res.redirect("/avaliacao/" + avaliacaoId + "?totalCorretas=" + totalCorretas);
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ error: 'Erro ao verificar respostas' });
+        }
+    }
 }
 
 module.exports = new AvisosController()

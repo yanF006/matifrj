@@ -19,26 +19,33 @@
               <% if (exercicios.length === 0) { %>
                 <p>Não há exercícios disponíveis no momento.</p>
               <% } %>
-              <% exercicios.forEach((exercicio, index) => { %>
-                <div class="mb-4 p-3 border rounded">
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <strong><%= index + 1 %>)</strong>
-                    <div>
-                      <%- exercicio.descricao %>
+              <form method = "POST" action = "/enviarRespostas" >
+                <input type="hidden" name="avaliacaoId" value="<%= avaliacao.id %>">
+                <% exercicios.forEach((exercicio, index) => { %>
+                  <div class="mb-4 p-3 border rounded">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <strong><%= index + 1 %>)</strong>
+                      <div>
+                        <%- exercicio.descricao %>
+                      </div>
                     </div>
+                    <% exercicio.alternativas.forEach(alt => { %>
+                      <input type="radio" name="respostas[<%=exercicio.id%>]" value="<%=alt.id%>"> <%- alt.conteudo %> <br>
+                    <% }) %>
                   </div>
-                  <% exercicio.alternativas.forEach(alt => { %>
-                    <input type="radio" name="pergunta<%=exercicio.id%>" class="opcao" value="<%=alt.id%>"> <%- alt.conteudo %> <br>
-                  <% }) %>
-                </div>
-              <% }) %>
-              <% if (exercicios.length > 0) { %>
-                <div class="enviar">
+                <% }) %>
+                <% if (exercicios.length > 0) { %>
+                  <div class="enviar">
                   <button type="submit" style="margin-top: 20px;" class="btn btn-primary" onclick="verificarRespostasAvaliacao(<%= avaliacao.id %>)" >Enviar avaliação</button>
-                </div>
-                <div id="resultado" style="margin-top: 20px;"></div>
-                <div id="totalCorretas" style="margin-top: 10px; font-weight: bold;"></div>
-              <% } %>
+                  </div>
+                  <div id="resultado" style="margin-top: 20px;"></div>
+                  <div id="totalCorretas" style="margin-top: 10px; font-weight: bold;">
+                  <% if (typeof totalCorretas !== 'undefined') { %>
+                    Número de respostas certas: <%= totalCorretas %> de <%= exercicios.length %>
+                  <% } %>
+                  </div>
+                <% } %>
+              </form>
             </div>
           </div>
         </div>

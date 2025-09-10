@@ -37,17 +37,29 @@ class Avaliacoes
         return resultado
     }
 
-    async findExexerciciosByAvaliacaoId(id){
-        try{
-            const exercicios = await knex.select("exercicios.*")
-            .from("exercicios")
-            .innerJoin("exercicios_avaliacoes", "exercicios.id", "exercicios_avaliacoes.exercicio_id")
-            .leftJoin("alternativas", "exercicios.id", "alternativas.exercicio_id")
-            .where("exercicios_avaliacoes.avaliacao_id", id); // <-- CORRIGIDO
-            return exercicios
-        }catch(err){
-            console.log(err)
-            return []; // Retorne array vazio em caso de erro
+    async findExerciciosByAvaliacaoId(id) {
+        try {
+            // Busca todos os exercícios da avaliação
+            const exercicios = await knex('exercicios')
+                .innerJoin('exercicios_avaliacoes', 'exercicios.id', 'exercicios_avaliacoes.exercicio_id')
+                .where('exercicios_avaliacoes.avaliacao_id', id)
+                .select('exercicios.*');
+
+            // Para cada exercício, busca suas alternativas
+            for (let exercicio of exercicios) {
+                exercicio.alternativas = await knex('exercicios_alternativas')
+                    .join('alternativas', 'exercicios_alternativas.alternativa_id', 'alternativas.id')
+                    .where({ exercicio_id: exercicio.id })
+                    .select(
+                        'alternativas.id',
+                        'alternativas.conteudo'
+                    );
+            }
+
+            return exercicios;
+        } catch (err) {
+            console.log(err);
+            return [];
         }
     }
 
@@ -58,6 +70,83 @@ class Avaliacoes
         }
         catch(err){
             console.log(err)
+        }
+    }
+
+    async verificarRespostasAvaliacao(avaliacaoId, respostas, user_id) {
+        try {
+            // Busca todos os exercícios da avaliação
+            const exercicios = await knex('exercicios')
+                .innerJoin('exercicios_avaliacoes', 'exercicios.id', 'exercicios_avaliacoes.exercicio_id')
+                .where('exercicios_avaliacoes.avaliacao_id', avaliacaoId)
+                .select('exercicios.id');
+
+            let totalCorretas = 0;
+
+            for (let exercicio of exercicios) {
+                const respostaAluno = respostas[exercicio.id];
+                if (!respostaAluno) continue;
+
+                // Busca se a alternativa marcada pelo aluno é a correta
+                const alternativa = await knex('alternativas')
+                    .where({ id: respostaAluno })
+                    .first();
+
+                if (alternativa && alternativa.correta) {
+                    totalCorretas += 1;
+                }
+
+                const id = await knex.select('id').from('exercicios_avaliacoes').where({avaliacao_id: avaliacaoId, exercicio_id: exercicio.id}).first()
+
+                await knex('exercicios_avaliacoes_users_alternativas')
+                .insert({
+                    exercicio_avaliacao_id: id.id,
+                    user_id: user_id,
+                    alternativa_id: respostaAluno
+                })
+
+            }
+
+            const feito = await knex('avaliacoes_users').where({avaliacao_id: avaliacaoId, user_id: user_id}).select('feito');
+
+            if(feito != null) return -1;
+
+            await knex('avaliacoes_users')
+            .insert({
+                avaliacao_id: avaliacaoId,
+                user_id: user_id,
+                feito: feito != null ? feito + 1 : 1,
+            });
+
+            return totalCorretas;
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
+    }
+
+    async resultadosAvaliacao(avaliacaoId) {
+        try {
+            const resultados = await knex('users')
+                .innerJoin('exercicios_avaliacoes_users_alternativas', 'users.id', 'exercicios_avaliacoes_users_alternativas.user_id')
+                .innerJoin('exercicios_avaliacoes', 'exercicios_avaliacoes_users_alternativas.exercicio_avaliacao_id', 'exercicios_avaliacoes.id')
+                .where('exercicios_avaliacoes.avaliacao_id', avaliacaoId)
+                .select('users.*')
+                .groupBy('users.id');
+
+            for (let res of resultados) {
+                res.alternativas = await knex('alternativas')
+                    .innerJoin('exercicios_avaliacoes_users_alternativas', 'alternativas.id', 'exercicios_avaliacoes_users_alternativas.alternativa_id')
+                    .innerJoin('exercicios_avaliacoes', 'exercicios_avaliacoes_users_alternativas.exercicio_avaliacao_id', 'exercicios_avaliacoes.id')
+                    .where('exercicios_avaliacoes_users_alternativas.user_id', res.id)
+                    .andWhere('exercicios_avaliacoes.avaliacao_id', avaliacaoId)
+                    .select('alternativas.conteudo')
+            }
+
+            return resultados;
+        } catch (err) {
+            console.log(err);
+            return [];
         }
     }
 }

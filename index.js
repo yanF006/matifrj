@@ -188,6 +188,7 @@ app.post('/avaliacaoCriar', isAuthenticated(1), AvaliacoesController.criarAvalia
 
 app.get("/avaliacoesAluno", isLoggedIn(), AvaliacoesController.exibirAvaliacoesAluno);
 app.get("/avaliacao/:id", isLoggedIn(), AvaliacoesController.exibirAvaliacao);
+app.post("/enviarRespostas", isLoggedIn(), AvaliacoesController.verificarRespostasAvaliacao);
 app.get("/avaliacaoAdmin/:id", isAuthenticated(1), AvaliacoesController.exibirAvaliacaoAdmin);
 app.get("/resultadosAvaliacao/:id", isAuthenticated(1), AvaliacoesController.exibirResultadosAvaliacao);
 
