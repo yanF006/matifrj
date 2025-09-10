@@ -330,7 +330,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (71,' Yan','yanmartinsporto@gmail.com','$2a$10$YBsFBMUAS0DsBBNAAvhmpO2YicD3YCoWaECY.BsS0Am0VgYOLI966',1,'00000000000000',19),(72,'Yan2','martinsportofigueirayan@gmail.com','$2a$10$DQIYvBprZ.SMsmWrHM8kbOigzS/.uHQGh9plEz38DYrJOCpQjtCW.',0,'00000000000000',NULL),(73,'Yan3','yanmartinsporto3@gmail.com','$2a$10$RtVVZKdXJd.zkWCsobThde8FEWU7NmyQU3etuKw1NCJlvwcZyKqqW',0,'00000000000000',NULL),(74,'Yan4','yanmartinsporto4@gmail.com','$2a$10$wRrrQF2mQrOP6MSQdEuwse/tpG5SQoJWGtxpKj.JpNtAnYyJ8e5e2',0,'00000000000000',NULL),(75,'0','yanmartinsporto5@gmail.com','$2a$10$IHf9tqSHMYwgThXNZVwGTO19kfULrZmXm.Zunv0qozKXt.Oag2xlC',0,'00000000000000',NULL);
+INSERT INTO `users` VALUES (71,' Yan','yanmartinsporto@gmail.com','$2a$10$YBsFBMUAS0DsBBNAAvhmpO2YicD3YCoWaECY.BsS0Am0VgYOLI966',1,'00000000000000',19),(72,'Yan2','martinsportofigueirayan@gmail.com','$2a$10$DQIYvBprZ.SMsmWrHM8kbOigzS/.uHQGh9plEz38DYrJOCpQjtCW.',0,'00000000000000',NULL),(73,'Yan3','yanmartinsporto3@gmail.com','$2a$10$RtVVZKdXJd.zkWCsobThde8FEWU7NmyQU3etuKw1NCJlvwcZyKqqW',0,'00000000000000',NULL),(74,'Yan4','yanmartinsporto4@gmail.com','$2a$10$wRrrQF2mQrOP6MSQdEuwse/tpG5SQoJWGtxpKj.JpNtAnYyJ8e5e2',0,'00000000000000',NULL),(75,'0','yanmartinsporto5@gmail.com','$2a$10$IHf9tqSHMYwgThXNZVwGTO19kfULrZmXm.Zunv0qozKXt.Oag2xlC',0,'00000000000000',NULL),(76,'Yuri','yuricastelo2008@gmail.com','$2a$10$IHf9tqSHMYwgThXNZVwGTO19kfULrZmXm.Zunv0qozKXt.Oag2xlC',1,'18592739713',19);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
