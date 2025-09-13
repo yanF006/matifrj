@@ -29,12 +29,19 @@
                 <tbody>
                   <% resultados.forEach(res => { %>
                     <tr>
-                      <td><%= res.name %></td>
-                      <% res.alternativas.forEach(alt => { %>
-                        <td><%= alt.conteudo %></td>
+                      <td><%= res.user_nome %></td>
+                      <% res.respostas.forEach((alt) => { %>
+                        <td><%= alt.alternativa_conteudo %></td>
                       <% }) %>
                     </tr>
                   <% }) %>
+                  <tr>
+                    <td>Gabarito</td>
+                    <% exercicios.forEach(res => { %>
+                      <% const correta = res.alternativas.find(a => a.correta); %>
+                      <td><%= correta ? correta.conteudo : 'N/A' %></td>
+                    <% }) %>
+                  </tr>
                 </tbody>
               </table>
             </div>

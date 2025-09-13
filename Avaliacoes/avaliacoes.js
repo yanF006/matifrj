@@ -43,7 +43,8 @@ class Avaliacoes
             const exercicios = await knex('exercicios')
                 .innerJoin('exercicios_avaliacoes', 'exercicios.id', 'exercicios_avaliacoes.exercicio_id')
                 .where('exercicios_avaliacoes.avaliacao_id', id)
-                .select('exercicios.*');
+                .select('exercicios.*')
+                .orderBy('exercicios.id', 'asc');
 
             // Para cada exercício, busca suas alternativas
             for (let exercicio of exercicios) {
@@ -52,7 +53,8 @@ class Avaliacoes
                     .where({ exercicio_id: exercicio.id })
                     .select(
                         'alternativas.id',
-                        'alternativas.conteudo'
+                        'alternativas.conteudo',
+                        'alternativas.correta'
                     );
             }
 
@@ -107,17 +109,6 @@ class Avaliacoes
 
             }
 
-            const feito = await knex('avaliacoes_users').where({avaliacao_id: avaliacaoId, user_id: user_id}).select('feito');
-
-            if(feito != null) return -1;
-
-            await knex('avaliacoes_users')
-            .insert({
-                avaliacao_id: avaliacaoId,
-                user_id: user_id,
-                feito: feito != null ? feito + 1 : 1,
-            });
-
             return totalCorretas;
         } catch (err) {
             console.log(err);
@@ -127,21 +118,45 @@ class Avaliacoes
 
     async resultadosAvaliacao(avaliacaoId) {
         try {
-            const resultados = await knex('users')
-                .innerJoin('exercicios_avaliacoes_users_alternativas', 'users.id', 'exercicios_avaliacoes_users_alternativas.user_id')
-                .innerJoin('exercicios_avaliacoes', 'exercicios_avaliacoes_users_alternativas.exercicio_avaliacao_id', 'exercicios_avaliacoes.id')
-                .where('exercicios_avaliacoes.avaliacao_id', avaliacaoId)
-                .select('users.*')
-                .groupBy('users.id');
+            // Busca todos os usuários que responderam a avaliação
+            const respostas = await knex('exercicios_avaliacoes_users_alternativas as eaua')
+                .join('exercicios_avaliacoes as ea', 'eaua.exercicio_avaliacao_id', 'ea.id')
+                .join('avaliacoes as a', 'ea.avaliacao_id', 'a.id')
+                .join('exercicios as e', 'ea.exercicio_id', 'e.id')
+                .join('users as u', 'eaua.user_id', 'u.id')
+                .join('alternativas as alt', 'eaua.alternativa_id', 'alt.id')
+                .where('a.id', avaliacaoId)
+                .select(
+                    'u.id as user_id',
+                    'u.name as user_nome',
+                    'e.id as exercicio_id',
+                    'alt.id as alternativa_id',
+                    'alt.conteudo as alternativa_conteudo'
+                )
+                .orderBy(['u.id', 'e.id']);
 
-            for (let res of resultados) {
-                res.alternativas = await knex('alternativas')
-                    .innerJoin('exercicios_avaliacoes_users_alternativas', 'alternativas.id', 'exercicios_avaliacoes_users_alternativas.alternativa_id')
-                    .innerJoin('exercicios_avaliacoes', 'exercicios_avaliacoes_users_alternativas.exercicio_avaliacao_id', 'exercicios_avaliacoes.id')
-                    .where('exercicios_avaliacoes_users_alternativas.user_id', res.id)
-                    .andWhere('exercicios_avaliacoes.avaliacao_id', avaliacaoId)
-                    .select('alternativas.conteudo')
+            // Agrupa por usuário
+            const resultados = [];
+            let usuarioAtual = null;
+            let usuarioObj = null;
+
+            for (const resposta of respostas) {
+                if (!usuarioAtual || usuarioAtual !== resposta.user_id) {
+                    if (usuarioObj) resultados.push(usuarioObj);
+                    usuarioObj = {
+                        user_id: resposta.user_id,
+                        user_nome: resposta.user_nome,
+                        respostas: []
+                    };
+                    usuarioAtual = resposta.user_id;
+                }
+                usuarioObj.respostas.push({
+                    exercicio_id: resposta.exercicio_id,
+                    alternativa_id: resposta.alternativa_id,
+                    alternativa_conteudo: resposta.alternativa_conteudo
+                });
             }
+            if (usuarioObj) resultados.push(usuarioObj);
 
             return resultados;
         } catch (err) {

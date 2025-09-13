@@ -1,17 +1,17 @@
-/*var knex = require('knex')({
+var knex = require('knex')({
     client: 'mysql2',
     connection: {
-      host : 'caboose.proxy.rlwy.net',
+      host : 'gondola.proxy.rlwy.net',
       user : 'root',
-      password : 'kdHHqulrTmNNaUtbNpIJKmhfiRvKMhaA',
-      database : 'matifrj',
-      port: 49606,
+      password : 'SYRagnIJzgVgvtKEVSPThnCpvyOVOeuW',
+      database : 'matifrjbd',
+      port: 30431,
       protocol: 'tcp',
     }
   });
 
-module.exports = knex;*/
-var knex = require('knex')({
+module.exports = knex;
+/*var knex = require('knex')({
     client: 'mysql2',
     connection: {
       host : 'localhost',
@@ -20,4 +20,4 @@ var knex = require('knex')({
       database: 'matifrjBD',
     }
   });
-module.exports = knex;
+module.exports = knex;*/
