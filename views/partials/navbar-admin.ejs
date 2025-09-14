@@ -4,58 +4,38 @@
             <div class="sidebar-logo">
                 <a href="/index-admin">MATIFRJ</a>
             </div>
+
             <div id="user">
-               
-                <p id="user_infos">
+                <!--Talvez colocar aqui a foto de perfil do usuario-->
+                <div id="user_infos">
                     <% if (user) { %>
                         <span class="item-description" id="usuario"><%= user.username %></span>
-                        
                     <% } else { %>
-                        <span class="item-description" id="usuario">Faça Login/Cadastre-se !</span>
+                        <span class="item-description" id="usuario">Faça Login/Registre-se!</span>
                     <% } %>
-                    
 
                     <% if (user.turmaName) { %>
-                        <span class="item-description">
-                            <%= user.turmaName %>
-                        </span>
-                        
+                        <span class="item-description"><%= user.turmaName %></span>
                     <% } else { %>
                         <span class="item-description"></span>
                     <% } %>
-                </p>
-            </div>   
+                </div>
+            </div>  
+
             <ul class="sidebar-nav">   
-            <li class="sidebar-item">
-                <a href="/index-admin" class="sidebar-link">
-                    <i class="fa-solid fa-house"></i>
-                    Página inicial
-                </a>
-            </li>        
+                <li class="sidebar-item">
+                    <a href="/index-admin" class="sidebar-link">
+                        <i class="fa-solid fa-house"></i>
+                        Página inicial
+                    </a>
+                </li>
+
                 <li class="sidebar-item">
                     <a href="/perfil-admin/<%= user.id %>" class="sidebar-link">
                         <i class="fa-solid fa-user"></i>
                         Perfil
                     </a>
-                </li>     
-                <!-- <li class="sidebar-item">
-                    <a href="/atividades" class="sidebar-link">
-                        <i class="fa-solid fa-pen-fancy"></i>
-                        Cadastrar Atividades
-                    </a>
-                </li>    -->
-                <!-- <li class="sidebar-item">
-                    <a href="/ConteudosCadastrar" class="sidebar-link">
-                        <i class="fa-solid fa-pen"></i>
-                        Cadastrar Conteudos
-                    </a>
-                </li>     
-                <li class="sidebar-item">
-                    <a href="/GerenciarConteudos" class="sidebar-link">
-                        <i class="fa-solid fa-box-archive"></i>
-                        Gerenciar Conteudos
-                    </a>
-                </li>      -->
+                </li>
                  
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#anos"
@@ -74,13 +54,31 @@
                             <a href="/Bimestres-admin/3" class="sidebar-link">3º ano</a>
                         </li>
                     </ul>
-                </li>    
+                </li>
 
                 <li class="sidebar-item">
-                    <a href="/avaliacoes" class="sidebar-link">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#avaliacoes-collapse"
+                        aria-expanded="false">
                         <i class="fa-solid fa-clipboard-list"></i>
                         Avaliações
                     </a>
+                    <ul id="avaliacoes-collapse" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <!--<li class="sidebar-item">
+                            <a href="/gerenciarAvaliacoes" class="sidebar-link">
+                                Gerenciar Avaliações
+                            </a>
+                        </li>-->
+                        <li class="sidebar-item">
+                            <a href="/cadastroAvaliacao" class="sidebar-link">
+                                Cadastrar Avaliação
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/avaliacoesAluno" class="sidebar-link">
+                                Avaliações Ativas
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="sidebar-item">
@@ -91,7 +89,7 @@
                     </a>
                     <ul id="users" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="/cargos" class="sidebar-link">Gerenciar cargos de usuários</a>
+                            <a href="/cargos" class="sidebar-link">Gerenciar usuários</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="/turmas" class="sidebar-link">Gerenciar turmas</a>
@@ -138,25 +136,19 @@
                     <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#atividades-collapse"
                         aria-expanded="false">
                         <i class="fa-solid fa-pen-fancy"></i>
-                        Atividades
+                        Exercícios
                     </a>
                     <ul id="atividades-collapse" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
                             <a href="/gerenciar-exercicios" class="sidebar-link">
-                                Gerenciar Atividades
+                                Gerenciar exercícios
                             </a>
                         </li> 
                         <li class="sidebar-item">
                             <a href="/atividades" class="sidebar-link">
-                                Cadastrar Atividades
+                                Cadastrar exercícios
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a href="/desempenho" class="sidebar-link">
-                                Desempenhos (em desenvolvimento)
-                            </a>
-                        </li>   
-                        
                     </ul>
                 </li>
                 
@@ -180,43 +172,6 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#avaliacoes-collapse"
-                        aria-expanded="false">
-                        <i class="fa-solid fa-clipboard-list"></i>
-                        Avaliações
-                    </a>
-                    <ul id="avaliacoes-collapse" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="/cadastroAvaliacao" class="sidebar-link">
-                                Cadastrar Avaliação
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="/avaliacoesAluno" class="sidebar-link">
-                                Avaliações Cadastradas
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                
-
-                <!-- <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#autenticar"
-                        aria-expanded="false">
-                        <i class="fa-solid fa-square-check"></i> 
-                        Autenticar
-                    </a>
-                    <ul id="autenticar" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="/login" class="sidebar-link">Login</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="/cadastro" class="sidebar-link">Registro</a>
-                        </li>
-                    </ul>
-                </li>   -->
-
                 <hr>
 
                 <div class="theme_btn">
@@ -239,6 +194,7 @@
             </ul>
         </div>
     </aside>
+    
     <div class="main" id="index">
         <nav>
             <button class="btn" type="button" data-bs-theme="dark">

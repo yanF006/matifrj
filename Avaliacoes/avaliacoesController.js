@@ -16,6 +16,11 @@ class AvisosController
         const {nome, data_inicio, data_fim, exercicios} = req.body
         const user_id = req.session.user.id
 
+        if(!nome || !data_inicio || !data_fim || !exercicios){
+            res.send('<script>alert("Preencha todos os campos!"); window.location.href="/cadastroAvaliacao";</script>')
+            return
+        }
+
         const id = await Avaliacoes.new(nome, data_inicio, data_fim, user_id)
 
         exercicios.forEach(exercicio => {

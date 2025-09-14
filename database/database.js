@@ -1,4 +1,4 @@
-var knex = require('knex')({
+/*var knex = require('knex')({
     client: 'mysql2',
     connection: {
       host : 'gondola.proxy.rlwy.net',
@@ -10,8 +10,8 @@ var knex = require('knex')({
     }
   });
 
-module.exports = knex;
-/*var knex = require('knex')({
+module.exports = knex;*/
+var knex = require('knex')({
     client: 'mysql2',
     connection: {
       host : 'localhost',
@@ -20,4 +20,4 @@ module.exports = knex;
       database: 'matifrjBD',
     }
   });
-module.exports = knex;*/
+module.exports = knex;

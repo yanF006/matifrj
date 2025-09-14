@@ -77,6 +77,14 @@ class Avaliacoes
 
     async verificarRespostasAvaliacao(avaliacaoId, respostas, user_id) {
         try {
+            const feito = await knex('avaliacoes_users')
+                .where({ avaliacao_id: avaliacaoId, user_id: user_id })
+                .first();
+
+            if (feito) {
+                throw new Error("Avaliação já foi realizada por este usuário.");
+            }
+
             // Busca todos os exercícios da avaliação
             const exercicios = await knex('exercicios')
                 .innerJoin('exercicios_avaliacoes', 'exercicios.id', 'exercicios_avaliacoes.exercicio_id')
@@ -108,6 +116,12 @@ class Avaliacoes
                 })
 
             }
+
+            await knex('avaliacoes_users').insert({
+                avaliacao_id: avaliacaoId,
+                user_id: user_id,
+                feito: 1
+            });
 
             return totalCorretas;
         } catch (err) {
