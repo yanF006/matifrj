@@ -1,6 +1,7 @@
 const Avaliacoes = require("./avaliacoes")
 const Exercicios = require("../Exercicios/exercicios")
 const Categorias = require("../Categorias/categorias")
+const Turmas = require("../Users/Turmas/turmas")
 
 class AvisosController
 {
@@ -8,7 +9,8 @@ class AvisosController
     {
         const exercicios = await Exercicios.findAll()
         const categorias = await Categorias.findAll()
-        res.render("cadastroAvaliacao", {exercicios: exercicios, categorias: categorias})
+        const turmas = await Turmas.findAll()
+        res.render("cadastroAvaliacao", {exercicios: exercicios, categorias: categorias, turmas: turmas})
     }
 
     async criarAvaliacao(req, res)
