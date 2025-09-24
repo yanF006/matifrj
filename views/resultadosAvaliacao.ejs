@@ -25,6 +25,7 @@
                     <% exercicios.forEach(res => { %>
                       <th><%- res.descricao %></th>
                     <% }) %>
+                    <th>Acertos</th>
                 </thead>
                 <tbody>
                   <% resultados.forEach(res => { %>
@@ -33,6 +34,7 @@
                       <% res.respostas.forEach((alt) => { %>
                         <td><%= alt.alternativa_conteudo %></td>
                       <% }) %>
+                      <td>res.acertos</td>
                     </tr>
                   <% }) %>
                   <tr>
@@ -41,6 +43,7 @@
                       <% const correta = res.alternativas.find(a => a.correta); %>
                       <td><%= correta ? correta.conteudo : 'N/A' %></td>
                     <% }) %>
+                    <td>-</td>
                   </tr>
                 </tbody>
               </table>

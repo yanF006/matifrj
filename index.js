@@ -191,6 +191,7 @@ app.get("/avaliacao/:id", isLoggedIn(), AvaliacoesController.exibirAvaliacao);
 app.post("/enviarRespostas", isLoggedIn(), AvaliacoesController.verificarRespostasAvaliacao);
 app.get("/avaliacaoAdmin/:id", isAuthenticated(1), AvaliacoesController.exibirAvaliacaoAdmin);
 app.get("/resultadosAvaliacao/:id", isAuthenticated(1), AvaliacoesController.exibirResultadosAvaliacao);
+app.get("/gerenciarAvaliacoes", isAuthenticated(1), AvaliacoesController.gerenciarAvaliacoes);
 
 app.listen(8070,()=>{
     console.log("Servidor Rodando")

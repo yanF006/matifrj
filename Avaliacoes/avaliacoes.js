@@ -31,6 +31,16 @@ class Avaliacoes
             console.log(err)
         }
     }
+
+    async findaAll(){
+        try{
+            const avaliacoes = await knex.select("*").from("avaliacoes").orderBy("data_inicio", "asc");
+            return avaliacoes
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
     
     async findExerciciobyCategoria(id){
         var resultado = await knex.select(['id', 'titulo', 'descricao']).where({categoria:id}).table('exercicios')
@@ -82,7 +92,7 @@ class Avaliacoes
                 .first();
 
             if (feito) {
-                throw new Error("Avaliação já foi realizada por este usuário.");
+                return -1; // Já fez a avaliação
             }
 
             // Busca todos os exercícios da avaliação
@@ -145,9 +155,10 @@ class Avaliacoes
                     'u.name as user_nome',
                     'e.id as exercicio_id',
                     'alt.id as alternativa_id',
-                    'alt.conteudo as alternativa_conteudo'
+                    'alt.conteudo as alternativa_conteudo',
+                    'alt.correta as alternativa_correta'
                 )
-                .orderBy(['u.id', 'e.id']);
+                .orderBy(['u.id', 'e.id'])
 
             // Agrupa por usuário
             const resultados = [];
@@ -156,21 +167,70 @@ class Avaliacoes
 
             for (const resposta of respostas) {
                 if (!usuarioAtual || usuarioAtual !== resposta.user_id) {
-                    if (usuarioObj) resultados.push(usuarioObj);
+                    if (usuarioObj) {
+                        // Salva o número de acertos do usuário na tabela avaliacoes_users
+                        const registro = await knex('avaliacoes_users')
+                            .where({ avaliacao_id: avaliacaoId, user_id: usuarioObj.user_id })
+                            .first();
+
+                        if (registro) {
+                            await knex('avaliacoes_users')
+                                .where({ avaliacao_id: avaliacaoId, user_id: usuarioObj.user_id })
+                                .update({ acertos: usuarioObj.acertos });
+                        } else {
+                            await knex('avaliacoes_users')
+                                .insert({
+                                    avaliacao_id: avaliacaoId,
+                                    user_id: usuarioObj.user_id,
+                                    acertos: usuarioObj.acertos,
+                                    feito: 1
+                                });
+                        }
+
+                        resultados.push(usuarioObj);
+                    }
+
                     usuarioObj = {
                         user_id: resposta.user_id,
                         user_nome: resposta.user_nome,
+                        acertos: 0,
                         respostas: []
                     };
                     usuarioAtual = resposta.user_id;
                 }
+
                 usuarioObj.respostas.push({
                     exercicio_id: resposta.exercicio_id,
                     alternativa_id: resposta.alternativa_id,
                     alternativa_conteudo: resposta.alternativa_conteudo
                 });
+
+                if (resposta.alternativa_correta) {
+                    usuarioObj.acertos += 1;
+                }
             }
-            if (usuarioObj) resultados.push(usuarioObj);
+
+            if (usuarioObj) {
+                const registro = await knex('avaliacoes_users')
+                    .where({ avaliacao_id: avaliacaoId, user_id: usuarioObj.user_id })
+                    .first();
+
+                if (registro) {
+                    await knex('avaliacoes_users')
+                        .where({ avaliacao_id: avaliacaoId, user_id: usuarioObj.user_id })
+                        .update({ acertos: usuarioObj.acertos });
+                } else {
+                    await knex('avaliacoes_users')
+                        .insert({
+                            avaliacao_id: avaliacaoId,
+                            user_id: usuarioObj.user_id,
+                            acertos: usuarioObj.acertos,
+                            feito: 1
+                        });
+                }
+
+                resultados.push(usuarioObj);
+            }
 
             return resultados;
         } catch (err) {

@@ -1,0 +1,69 @@
+<%- include ('partials/header.ejs'); %>
+<link rel="stylesheet" href="/CSS/cargos.css">
+<title>Avaliações Ativas</title>
+<body>
+    <%- include ('partials/navbar-aluno.ejs'); %>
+    <div class="container mt-4">
+        <h1>Avaliações Ativas</h1>
+        <div class="card p-4">
+            <div class="mt-4">
+                <div class="card-header"><h2>Avaliações</h2></div>
+                <ul class="list-group" id="adminList">   
+                    <% if (avaliacoes.length > 0) { %>
+                        <% avaliacoes.forEach(avaliacao => { %>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="/avaliacao/<%= avaliacao.id %>"><strong><%= avaliacao.nome %></strong> <br> <i><%= new Date(avaliacao.data_inicio).toLocaleDateString() %> a <%= new Date(avaliacao.data_fim).toLocaleDateString() %></i></a>
+                                <br>
+                                <a href="/resultadosAvaliacao/<%= avaliacao.id %>">Resultados</a>
+                            </li>
+                        <% }) %>
+                      <% } else { %>
+                        <p>Nenhuma avaliação encontrada.</p>
+                      <% } %>
+                    
+                </ul>
+            </div>
+
+            
+        </div>
+        
+    </div>
+    
+        <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.btn-func');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const userId = button.getAttribute('data-id');
+                const newRole = button.getAttribute('data-role');
+
+                try {
+                    const response = await fetch('/update-role', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id: userId, role: newRole })
+                    });
+
+                    if (response.ok) {
+                        // Atualize a interface conforme necessário
+                        alert('Cargo atualizado com sucesso!');
+                        location.reload(); // Atualiza a página para refletir a mudança
+                    } else {
+                        alert('Erro ao atualizar cargo.');
+                    }
+                } catch (error) {
+                    console.error('Erro ao enviar requisição:', error);
+                }
+            });
+        });
+    });
+</script>
+
+    
+    <script src="/JS/cargos.js"></script>
+    <script src="/JS/script.js"></script>
+</body>
+<%- include ('partials/footer.ejs'); %>

@@ -94,11 +94,20 @@ class AvisosController
         try {
             const { avaliacaoId, respostas } = req.body;
             const totalCorretas = await Avaliacoes.verificarRespostasAvaliacao(avaliacaoId, respostas, req.session.user.id);
-            res.redirect("/avaliacao/" + avaliacaoId + "?totalCorretas=" + totalCorretas);
+            if (totalCorretas === -1) {
+                res.send('<script>alert("Você já realizou esta avaliação."); window.location.href="/avaliacoesAluno";</script>');
+                return;
+            }
+            res.send('<script>alert("Avaliação concluída! Você acertou ' + totalCorretas + ' questões."); window.location.href="/avaliacoesAluno";</script>');
         } catch (err) {
             console.log(err);
             res.status(500).json({ error: 'Erro ao verificar respostas' });
         }
+    }
+
+    async gerenciarAvaliacoes(req, res) {
+        const avaliacoes = await Avaliacoes.findAll();
+        res.render("gerenciarAvaliacoes", { avaliacoes: avaliacoes });
     }
 }
 
