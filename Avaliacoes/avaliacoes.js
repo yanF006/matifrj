@@ -32,7 +32,7 @@ class Avaliacoes
         }
     }
 
-    async findaAll(){
+    async findAll(){
         try{
             const avaliacoes = await knex.select("*").from("avaliacoes").orderBy("data_inicio", "asc");
             return avaliacoes

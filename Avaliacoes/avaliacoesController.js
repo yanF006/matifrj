@@ -107,7 +107,7 @@ class AvisosController
 
     async gerenciarAvaliacoes(req, res) {
         const avaliacoes = await Avaliacoes.findAll();
-        res.render("gerenciarAvaliacoes", { avaliacoes: avaliacoes });
+        res.render("avaliacoesAdmin", { avaliacoes: avaliacoes });
     }
 }
 
