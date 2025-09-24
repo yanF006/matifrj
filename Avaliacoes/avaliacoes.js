@@ -176,14 +176,13 @@ class Avaliacoes
                         if (registro) {
                             await knex('avaliacoes_users')
                                 .where({ avaliacao_id: avaliacaoId, user_id: usuarioObj.user_id })
-                                .update({ acertos: usuarioObj.acertos });
+                                .update({ feito: 1 }); // Update only the 'feito' field
                         } else {
                             await knex('avaliacoes_users')
                                 .insert({
                                     avaliacao_id: avaliacaoId,
                                     user_id: usuarioObj.user_id,
-                                    acertos: usuarioObj.acertos,
-                                    feito: 1
+                                    feito: 1 // Insert only the 'feito' field
                                 });
                         }
 
@@ -208,28 +207,6 @@ class Avaliacoes
                 if (resposta.alternativa_correta) {
                     usuarioObj.acertos += 1;
                 }
-            }
-
-            if (usuarioObj) {
-                const registro = await knex('avaliacoes_users')
-                    .where({ avaliacao_id: avaliacaoId, user_id: usuarioObj.user_id })
-                    .first();
-
-                if (registro) {
-                    await knex('avaliacoes_users')
-                        .where({ avaliacao_id: avaliacaoId, user_id: usuarioObj.user_id })
-                        .update({ acertos: usuarioObj.acertos });
-                } else {
-                    await knex('avaliacoes_users')
-                        .insert({
-                            avaliacao_id: avaliacaoId,
-                            user_id: usuarioObj.user_id,
-                            acertos: usuarioObj.acertos,
-                            feito: 1
-                        });
-                }
-
-                resultados.push(usuarioObj);
             }
 
             return resultados;
